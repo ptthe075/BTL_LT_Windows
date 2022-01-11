@@ -1,0 +1,124 @@
+.slider-single_wrapper {
+    position: relative;
+    cursor: pointer;
+}
+
+.slide-single__item-slider {
+    height: 370px;
+}
+
+.prev,
+.next {
+    position: absolute;
+    top: 50%;
+    width: 60px;
+    height: 60px;
+    color: transparent;
+    font-size: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+}
+
+.prev {
+    left: 0;
+    transform: translate(-50%, -50%);
+    padding-left: 25px;
+}
+
+.next {
+    right: 0;
+    transform: translate(50%, -50%);
+    padding-right: 25px;
+}
+
+.slider-single_wrapper:hover .prev,
+.slider-single_wrapper:hover .next {
+    color: white;
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.slider-nav .slick-slide {
+    cursor: pointer;
+}
+
+.slider-nav__item {
+    height: 70px;
+    display: flex !important;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    padding: 0 5px;
+    font-size: 14px;
+}
+
+
+/* #region Sider Category*/
+
+.slick-slide.is-active {
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.08);
+    border-bottom: 3px solid var(--background-color);
+}
+
+.slick-slide.is-active {}
+
+.padding-slider__category:first-child {
+    padding-right: 6px;
+}
+
+.padding-slider__category:last-child {
+    padding-left: 6px;
+}
+
+.slide-single__item {
+    height: 150px;
+}
+
+.slider-single_wrapper:hover .prev.slider-category,
+.slider-single_wrapper:hover .next.slider-category {
+    background: white;
+    color: var(--text-color);
+    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.4);
+}
+
+.slick-dotted.slick-slider {
+    margin: 0;
+}
+
+.slick-dots {
+    bottom: 10px;
+    display: none !important;
+}
+
+.slider-single_wrapper:hover .slick-dots {
+    display: block !important;
+}
+
+.slick-dots li {
+    width: auto;
+    height: auto;
+}
+
+.slick-dots li button {
+    padding: 0;
+    height: 10px;
+    width: 10px;
+    border-radius: 10px;
+    background: #444;
+    transition: width 0.5s;
+}
+
+.slick-dots li.slick-active button {
+    background: var(--subscribe-color);
+    width: 25px;
+}
+
+.slick-dots li button:before {
+    display: none;
+}
+
+
+/* #endregion Sider Category*/
