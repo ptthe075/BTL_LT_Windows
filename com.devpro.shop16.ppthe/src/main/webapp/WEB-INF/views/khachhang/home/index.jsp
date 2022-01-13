@@ -64,36 +64,35 @@
 										<i class="fas fa-chevron-right"></i>
 									</div>
 									<div class="slider-single">
-										<c:forEach var="slider" items="${sliders}">
-											<div class="slide-single__item-slider">
-												<img src="${base}/Upload/Sliders/${slider.image}" alt=""
-													width="100%" height="100%" class="slide-show__img">
-											</div>
+										<c:forEach var="slider" items="${slidesHome}" varStatus="loop">
+											<c:if test="${loop.index > 2}">
+												<a href="${slider.link }" class="slide-single__item-slider">
+													<img src="${base}/Upload/Sliders/${slider.image}" alt="" width="100%" height="100%" class="slide-show__img">
+												</a>
+											</c:if>
 										</c:forEach>
 									</div>
 								</div>
 								<div class="slider-nav">
-									<c:forEach var="slider" items="${sliders}">
-										<div class="slider-nav__item">${slider.name}</div>
+									<c:forEach var="slider" items="${slidesHome}" varStatus="loop">
+										<c:if test="${loop.index > 2}">
+											<div class="slider-nav__item">${slider.name}</div>
+										</c:if>
 									</c:forEach>
 								</div>
 							</div>
 						</div>
 						<div class="col c-3 padding-left-0">
 							<div class="banner-wrapper">
-								<a href="#" class="banner-item border-radius"> <img
-									src="${base}/assets/imgs/slides/banner1.webp"
-									class="box-shadow border-radius" alt="" width="100%"
-									height="100%">
-								</a> <a href="#" class="banner-item border-radius"> <img
-									src="${base}/assets/imgs/slides/banner2.webp"
-									class="box-shadow border-radius" alt="" width="100%"
-									height="100%">
-								</a> <a href="#" class="banner-item border-radius"> <img
-									src="${base}/assets/imgs/slides/banner3.webp"
-									class="box-shadow border-radius" alt="" width="100%"
-									height="100%">
-								</a>
+								<c:forEach var="slider" items="${slidesHome}" varStatus="loop">
+									<c:if test="${loop.index <= 2}">
+										<a href="${slider.link }" class="banner-item border-radius">
+											<img src="${base}/Upload/Sliders/${slider.image}"
+											class="box-shadow border-radius" alt="" width="100%"
+											height="100%">
+										</a>
+									</c:if>
+								</c:forEach>
 							</div>
 						</div>
 					</div>
@@ -191,11 +190,7 @@
 											</div>
 											<div class="item-product__action">
 												<div class="item-product__rating">
-													<i class="fas fa-star start-checked"></i> <i
-														class="fas fa-star start-checked"></i> <i
-														class="fas fa-star start-checked"></i> <i
-														class="fas fa-star start-checked"></i> <i
-														class="fas fa-star start-checked"></i>
+													
 												</div>
 												<a onclick="javascript:AddToCart('${base}', ${product.id}, 1);" class="item-product__cart"> <i
 													class="fas fa-cart-plus"></i>
@@ -203,7 +198,6 @@
 											</div>
 										</div>
 									</c:forEach>
-									
 								</div>
 							</div>
 						</div>
@@ -218,6 +212,7 @@
 	<script src="${base}/assets/lib/jquery/jquery.min.js"></script>
 	<script src="${base}/assets/lib/slick/js/slick.min.js"></script>
 	<script src="${base}/assets/lib/slick/js/slick.script.js"></script>
+	<script src="${base}/assets/lib/sweetalert/sweetalert2.all.min.js"></script>
 	<script src="${base}/assets/js/product.js"></script>
 	<script src="${base}/assets/js/script.js"></script>
 </body>

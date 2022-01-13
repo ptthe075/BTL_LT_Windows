@@ -14,7 +14,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cellphone</title>
+<title>Information</title>
 
 <!-- Google Font: Source Sans Pro -->
 <link rel="stylesheet"
@@ -52,11 +52,11 @@
 					<div class="row mb-2">
 						<div class="col-sm-6">
 							<c:choose>
-								<c:when test="${empty color.id}">
-									<h1 class="m-0">Thêm mới màu sắc</h1>
+								<c:when test="${empty product.id}">
+									<h1 class="m-0">Thêm thông tin</h1>
 								</c:when>
 								<c:otherwise>
-									<h1 class="m-0">Sửa thông tin màu sắc</h1>
+									<h1 class="m-0">Sửa thông tin</h1>
 								</c:otherwise>
 							</c:choose>
 						</div>
@@ -73,18 +73,20 @@
 					<div class="col-md-12">
 						<div class="card card-primary">
 							<div class="card-body">
-								<sf:form method="post" action="${base}/admin/colors/management" modelAttribute="color">
+								<sf:form method="post" action="${base}/admin/informations/management" modelAttribute="information" enctype="multipart/form-data">
 									<sf:hidden path="id" />
 									<div class="form-group">
-										<label for="name">Tên màu(*)</label>
+										<label for="name">Tên tiêu đề (*)</label>
 										<sf:input path="name" type="text" id="name" class="form-control" required="required" />
 									</div>
-									<div class="form-group col-1">
-										<label for="hexCode">Mã màu(*)</label>
-										<sf:input path="hexCode" type="color" id="hexCode" class="form-control" required="required" />
+									<div class="form-group">
+										<label for="description">Nội dung (*)</label>
+										<sf:textarea autocomplete="off" path="description"
+											class="form-control summernote" id="description"
+											required="required"></sf:textarea>
 									</div>
 									<div class="form-group">
-										<a href="${base}/admin/products"
+										<a href="${base}/admin/informations"
 											class="btn btn-lg btn-secondary"> <i class="fas fa-reply"></i>
 											Quay lại
 										</a>
@@ -92,7 +94,7 @@
 											class="btn btn-lg btn-success float-right">
 											<i class="fas fa-save"></i>
 											<c:choose>
-												<c:when test="${empty color.id}"> Tạo mới </c:when>
+												<c:when test="${empty product.id}"> Tạo mới </c:when>
 												<c:otherwise> Cập nhật </c:otherwise>
 											</c:choose>
 										</button>
@@ -114,7 +116,7 @@
 			</strong> All rights reserved.
 		</footer>
 
-		<div id="select-nav" name-item="products" style="display: none;"></div>
+		<div id="select-nav" name-item="informations" style="display: none;"></div>
 	</div>
 	<!-- ./wrapper -->
 
@@ -132,7 +134,6 @@
 	<!-- Custom js -->
 	<script src="${base}/areas/admin/js/item.script.js"></script>
 	<script src="${base}/areas/admin/js/script.js"></script>
-
 </body>
 
 </html>

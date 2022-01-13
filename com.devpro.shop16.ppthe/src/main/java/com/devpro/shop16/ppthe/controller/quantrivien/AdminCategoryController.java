@@ -43,7 +43,7 @@ public class AdminCategoryController extends BaseController {
 	@RequestMapping(value = { "/management/{categoryId}", }, method = RequestMethod.GET)
 	public String adminCategoryEdit(final Model model, final HttpServletRequest request,
 			final HttpServletResponse response, @PathVariable("categoryId") int categoryId) throws Exception {
-
+		
 		Category category = categoryService.getById(categoryId);
 
 		model.addAttribute("category", category);
@@ -57,6 +57,9 @@ public class AdminCategoryController extends BaseController {
 			@RequestParam("add_img-avatar") MultipartFile categoryAvatar) throws Exception {
 
 		if (category.getId() == null || category.getId() <= 0) {
+			if(category.getParent().getId() == null) {
+				category.setParent(null);
+			}
 			categoryService.saveOrUpdate(category);
 			categoryService.add(category, categoryAvatar);
 		} else {

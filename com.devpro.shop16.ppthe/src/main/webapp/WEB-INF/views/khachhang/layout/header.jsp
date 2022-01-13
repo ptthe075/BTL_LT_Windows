@@ -66,7 +66,7 @@
 								</div></li>
 							<li
 								class="header__container-item border-radius header__container-hiden">
-								<a href="/contact" class="header__container-link"> <i
+								<a href="${base }/contact" class="header__container-link"> <i
 									class="fas fa-phone-alt header__item-icon"></i> <span
 									class="header__item-name">Liên hệ</span>
 							</a>
@@ -77,38 +77,9 @@
 									class="header__item-name">Giỏ hàng</span>
 									<span id="iconShowTotalItemsInCart">${totalItems}</span>
 									</a>
-									
-								<!--<p class="box-shadow"></p>
-								<div id="cart-price" class="header__hover-wrapper border-radius box-shadow cart">
-									<ul class="header__hover-list">
-										<c:forEach var="ci" items="${cart.cartItems}">
-											<li class="header__hover-item">
-	                                        	<div class="cart-price__item">
-		                                            <img class="cart-price__img" src="${base}/Upload/Products/${ci.productAvatar}" width="100%" height="100%" alt="">
-		                                            <div class="cart-price__name">${ci.productName}</div>
-		                                            <div class="cart-price__price">
-		                                                <span class="quantity" quantity="1">${ci.quantity}</span>
-		                                                <span class="price" price="123000000">${ci.priceUnit}</span>
-		                                            </div>
-	                                            </div>
-	                                        </li>
-										</c:forEach>
-									</ul>
-									<div class="cart-price__total">
-										<span>Tổng tiền: </span> <span id="header__price-total">
-											85.733.000đ </span>
-									</div>
-									<div class="cart-price__url">
-										<p>
-											Bạn có <span class="cart-price__sum">2</span> sản phẩm trong
-											giỏ hàng
-										</p>
-										<a href="#">Xem giỏ hàng</a>
-									</div>
-								</div>-->
 							</li>
 							<li class="header__container-item border-radius header__container-hiden">
-								<c:choose>
+								<!--<c:choose>
 									<c:when test="${isLogined}">
 										<a href="#" class="header__container-link">
 											<i class="fas fa-user-circle header__item-icon"></i>
@@ -133,6 +104,20 @@
 												</li>
 											</ul>
 										</div>
+									</c:when>
+									<c:otherwise>
+										<a href="/login" class="header__container-link">
+											<i class="fas fa-user-circle header__item-icon"></i>
+											<span class="header__item-name">Đăng nhập</span>
+										</a>
+									</c:otherwise>
+								</c:choose>-->
+								<c:choose>
+									<c:when test="${isLogined && not empty userLogined}">
+										<a href="#" class="header__container-link">
+											<i class="fas fa-user-circle header__item-icon"></i>
+											<span class="header__item-name"><div>Xin chào,</div>${userLogined.name}</span>
+										</a>
 									</c:when>
 									<c:otherwise>
 										<a href="/login" class="header__container-link">

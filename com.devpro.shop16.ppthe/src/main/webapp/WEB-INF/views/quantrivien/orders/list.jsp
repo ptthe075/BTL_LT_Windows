@@ -99,11 +99,11 @@
 														<tr>
 															<td class="text-align-center">${loop.index + 1}</td>
 															<td>${order.code }</td>
-															<td>${order.createdDate }</td>
+															<td><fmt:formatDate pattern = "dd/MM/yyyy HH:mm:ss" value = "${order.createdDate }" /></td>
 															<td>${order.customerName }</td>
 															<td>${order.customerPhone }</td>
 															<td>Đang giao</td>
-															<td><fmt:formatNumber value="${order.total }" minFractionDigits="0" type="currency"/></td>
+															<td style="text-align: right;"><fmt:formatNumber value="${order.total }" pattern="###,### ₫" type="number"/></td>
 															<td class="text-align-center">
 																<a href="${base }/admin/orders/detail/${order.id}" class="btn bg-gradient-primary btn-sm">
 																	<i class="fas fa-eye"></i>

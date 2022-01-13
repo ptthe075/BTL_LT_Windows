@@ -44,20 +44,6 @@
 
 	<div class="container-wrapper padding-top-0">
 		<div class="block-product-detail box-shadow">
-			<div class="product-detail__box border-bottom-2">
-				<div class="grid">
-					<div class="product-detail__name">
-						<h1>iPhone 13 Pro | Chính hãng VN/A</h1>
-						<div class="item-product__rating product-detail__rating ">
-							<i class="fas fa-star start-checked"></i> <i
-								class="fas fa-star start-checked"></i> <i
-								class="fas fa-star start-checked"></i> <i
-								class="fas fa-star start-checked"></i> <i
-								class="fas fa-star start-checked"></i> <span>40 đánh giá</span>
-						</div>
-					</div>
-				</div>
-			</div>
 			<div class="product-detail__box">
 				<div class="grid">
 					<div class="row">
@@ -98,32 +84,12 @@
 						</div>
 						<div class="col c-4">
 							<div class="product-detail__box-info">
-								<div class="box-info__price">
-									<c:choose>
-										<c:when test="${empty product.priceSale}">
-											<div class="special-price">${product.price}</div>
-										</c:when>
-										<c:otherwise>
-											<div class="special-price">${product.priceSale}</div>
-											<div class="old-price">${product.price}</div>
-										</c:otherwise>
-									</c:choose>
+								<div class="product-detail__name">
+									<h1>${product.name }</h1>
 								</div>
-								<div class="box-info__options">
-									<div class="box-info__options-title">Chọn màu để xem giá
-									</div>
-									<div class="box-info__options-content">
-										<ul class="list-colors">
-											<li class="item-color color-active border-radius">
-												<div class="item-linked__content">Bạc</div>
-												<div class="item-linked__price">36.590.000 ₫</div>
-											</li>
-											<li class="item-color border-radius">
-												<div class="item-linked__content">Vàng</div>
-												<div class="item-linked__price">36.590.000 ₫</div>
-											</li>
-										</ul>
-									</div>
+								<div class="box-info__options-content">
+									<h3>Mô tả</h3>
+									<div> ${product.shortDes } </div>
 								</div>
 								<div class="box-promotion border-radius">
 									<div class="box-promotion__title">
@@ -142,6 +108,17 @@
 											</li>
 										</ol>
 									</div>
+								</div>
+								<div class="box-info__price">
+									<c:choose>
+										<c:when test="${empty product.priceSale}">
+											<div class="special-price"><fmt:formatNumber value="${product.price}" pattern="###,### ₫" type="number"/></div>
+										</c:when>
+										<c:otherwise>
+											<div class="special-price"><fmt:formatNumber value="${product.priceSale}" pattern="###,### ₫" type="number"/></div>
+											<div class="old-price"><fmt:formatNumber value="${product.price}" pattern="###,### ₫" type="number"/></div>
+										</c:otherwise>
+									</c:choose>
 								</div>
 								<div class="box-quantity">
 									<p class="box-quantity__title">Số lượng:</p>
@@ -163,7 +140,7 @@
 											</a>
 										</div>
 										<div class="col c-6 margin-bottom-10 padding-right-6">
-											<a href="#" class="action-button__item border-radius">
+											<a class="action-button__item border-radius">
 												<div class="action-button__name">Thêm giỏ hàng</div>
 												<div class="action-button__desc">Thêm vào giỏ để chọn
 													tiếp</div>
@@ -232,7 +209,7 @@
 							</div>
 							<div class="row">
 								<div class="col c-12 list-product" name-category="similar">
-									<div class="item-product border-radius border-1 margin-12-6">
+									<!-- <div class="item-product border-radius border-1 margin-12-6">
 										<div class="item-product__percent">
 											<p>giảm 22%</p>
 										</div>
@@ -262,16 +239,16 @@
 												class="fas fa-cart-plus"></i>
 											</a>
 										</div>
-									</div>
+									</div> -->
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="col c-8 block-container padding-right-6">
-					<div class="border-radius box-shadow padding-10">
-						<h2 class="product__detail-title">Mô tả sản phẩm</h2>
-						${product.description}
+					<div class="border-radius box-shadow padding-10 overflow-hidden">
+						<h2 class="product__detail-title" style="text-align: center;">Mô tả sản phẩm</h2>
+						${product.details}
 					</div>
 				</div>
 				<div class="col c-4 block-container" id="specifications">

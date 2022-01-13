@@ -14,7 +14,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cellphone</title>
+<title>Category</title>
 
 <!-- Google Font: Source Sans Pro -->
 <link rel="stylesheet"
@@ -25,10 +25,6 @@
 <!-- Theme style -->
 <link rel="stylesheet"
 	href="${base}/areas/admin/dist/css/adminlte.min.css">
-<!-- summernote -->
-<link rel="stylesheet"
-	href="${base}/areas/admin/plugins/summernote/summernote-bs4.min.css">
-
 <!-- Custom CSS -->
 <link rel="stylesheet" href="${base}/areas/admin/css/item.style.css">
 <link rel="stylesheet" href="${base}/areas/admin/css/style.css">
@@ -54,10 +50,10 @@
 						<div class="col-sm-6">
 							<c:choose>
 								<c:when test="${empty category.id}">
-									<h1 class="m-0">Thêm mới sản phẩm</h1>
+									<h1 class="m-0">Thêm mới danh mục</h1>
 								</c:when>
 								<c:otherwise>
-									<h1 class="m-0">Sửa thông tin sản phẩm</h1>
+									<h1 class="m-0">Sửa thông tin danh mục</h1>
 								</c:otherwise>
 							</c:choose>
 						</div>
@@ -78,43 +74,43 @@
 									action="${base}/admin/categories/management"
 									modelAttribute="category" enctype="multipart/form-data">
 									<sf:hidden path="id" />
-									<div class="form-group">
-										<label for="category">Danh mục cha (*)</label>
-										<sf:select path="parent.id" class="form-control custom-select"
-											id="category">
-											<sf:option value="" label="Không có" />
-											<sf:options items="${categories }" itemValue="id"
-												itemLabel="name" />
-										</sf:select>
-									</div>
-									<div class="form-group">
-										<label for="name">Tên danh mục (*)</label>
-										<sf:input path="name" type="text" id="name"
-											class="form-control" required="required" />
-									</div>
-									<div class="form-group">
-										<label>Ảnh icon (*)</label>
-										<div class="display_img-avatar">
-											<c:choose>
-												<c:when test="${empty category.image}">
-													<img src="${base}/areas/admin/dist/img/upload_img.png"
-														class="upload-img">
-												</c:when>
-												<c:otherwise>
-													<img src="${base }/Upload/Categories/${category.image}"
-														class="upload-img">
-												</c:otherwise>
-											</c:choose>
-											<label for="img-avatar" class="display_img-change ">Chọn
-												ảnh</label> <input type="file" id="img-avatar" class="change-img"
-												name="add_img-avatar" hidden>
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label for="category">Danh mục cha (*)</label>
+												<sf:select path="parent.id" class="form-control custom-select"
+													id="category">
+													<sf:option value="" label="Không có" />
+													<sf:options items="${categories }" itemValue="id"
+														itemLabel="name" />
+												</sf:select>
+											</div>
+											<div class="form-group">
+												<label for="name">Tên danh mục (*)</label>
+												<sf:input path="name" type="text" id="name"
+													class="form-control" required="required" />
+											</div>
 										</div>
-									</div>
-									<div class="form-group">
-										<label for="description">Mô tả chi tiết (*)</label>
-										<sf:textarea autocomplete="off" path="description"
-											class="form-control summernote" id="description"
-											required="required"></sf:textarea>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label>Ảnh icon (*)</label>
+												<div class="display_img-avatar">
+													<c:choose>
+														<c:when test="${empty category.image}">
+															<img src="${base}/areas/admin/dist/img/upload_img.png"
+																class="upload-img">
+														</c:when>
+														<c:otherwise>
+															<img src="${base }/Upload/Categories/${category.image}"
+																class="upload-img">
+														</c:otherwise>
+													</c:choose>
+													<label for="img-avatar" class="display_img-change ">Chọn
+														ảnh</label> <input type="file" id="img-avatar" class="change-img"
+														name="add_img-avatar" hidden>
+												</div>
+											</div>
+										</div>
 									</div>
 									<div class="form-group">
 										<a href="${base}/admin/categories"
@@ -156,10 +152,6 @@
 	<!-- Bootstrap 4 -->
 	<script
 		src="${base}/areas/admin/plugins/bootstrap/js/bootstrap.bundle.min.js "></script>
-	<!-- Summernote -->
-	<script
-		src="${base}/areas/admin/plugins/summernote/summernote-bs4.min.js "></script>
-
 	<!-- AdminLTE App -->
 	<script src="${base}/areas/admin/dist/js/adminlte.js "></script>
 

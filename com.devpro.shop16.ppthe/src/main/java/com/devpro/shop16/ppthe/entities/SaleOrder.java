@@ -8,6 +8,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -37,6 +39,10 @@ public class SaleOrder extends BaseEntity {
 
 	@Column(name = "seo", length = 200, nullable = true)
 	private String seo;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "status_id")
+	private SaleOrderStatus saleOrderStatus;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "saleOrder", fetch = FetchType.LAZY)
 	private Set<SaleOrderProduct> saleOrderProducts = new HashSet<SaleOrderProduct>();
@@ -113,6 +119,22 @@ public class SaleOrder extends BaseEntity {
 
 	public void setCustomerEmail(String customerEmail) {
 		this.customerEmail = customerEmail;
+	}
+
+	public SaleOrderStatus getSaleOrderStatus() {
+		return saleOrderStatus;
+	}
+
+	public void setSaleOrderStatus(SaleOrderStatus saleOrderStatus) {
+		this.saleOrderStatus = saleOrderStatus;
+	}
+
+	public Set<SaleOrderProduct> getSaleOrderProducts() {
+		return saleOrderProducts;
+	}
+
+	public void setSaleOrderProducts(Set<SaleOrderProduct> saleOrderProducts) {
+		this.saleOrderProducts = saleOrderProducts;
 	}
 
 }

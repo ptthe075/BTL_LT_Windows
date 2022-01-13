@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -55,14 +59,13 @@
 						<!-- small box -->
 						<div class="small-box bg-info">
 							<div class="inner">
-								<h3>150</h3>
-
-								<p>Đơn hàng</p>
+								<h3>${countProduct }</h3>
+								<p>Sản phẩm</p>
 							</div>
 							<div class="icon">
 								<i class="ion ion-bag"></i>
 							</div>
-							<a href="#" class="small-box-footer">Xem chi tiết <i
+							<a href="${base}/admin/products" class="small-box-footer">Xem chi tiết <i
 								class="fas fa-arrow-circle-right"></i></a>
 						</div>
 					</div>
@@ -71,15 +74,13 @@
 						<!-- small box -->
 						<div class="small-box bg-success">
 							<div class="inner">
-								<h3>53</h3>
-								<!-- <sup style="font-size: 20px">%</sup> -->
-
-								<p>Đánh giá</p>
+								<h3>${countOrder }</h3>
+								<p>Đơn hàng</p>
 							</div>
 							<div class="icon">
 								<i class="ion ion-stats-bars"></i>
 							</div>
-							<a href="#" class="small-box-footer">Xem chi tiết <i
+							<a href="${base}/admin/orders" class="small-box-footer">Xem chi tiết <i
 								class="fas fa-arrow-circle-right"></i></a>
 						</div>
 					</div>
@@ -88,14 +89,13 @@
 						<!-- small box -->
 						<div class="small-box bg-warning">
 							<div class="inner">
-								<h3>44</h3>
-
-								<p>Người dùng</p>
+								<h3>${countUser }</h3>
+								<p>Tài khoản</p>
 							</div>
 							<div class="icon">
 								<i class="ion ion-person-add"></i>
 							</div>
-							<a href="#" class="small-box-footer">Xem chi tiết <i
+							<a href="${base}/admin/accounts" class="small-box-footer">Xem chi tiết <i
 								class="fas fa-arrow-circle-right"></i></a>
 						</div>
 					</div>
@@ -104,14 +104,13 @@
 						<!-- small box -->
 						<div class="small-box bg-danger">
 							<div class="inner">
-								<h3>65</h3>
-
-								<p>Sản phẩm</p>
+								<h3><fmt:formatNumber value="${totalOrder }" pattern="###,### ₫" type="number"/></td></h3>
+								<p>Tổng tiền</p>
 							</div>
 							<div class="icon">
 								<i class="ion ion-pie-graph"></i>
 							</div>
-							<a href="#" class="small-box-footer">Xem chi tiết <i
+							<a href="${base}/admin/orders" class="small-box-footer">Xem chi tiết <i
 								class="fas fa-arrow-circle-right"></i></a>
 						</div>
 					</div>
@@ -126,6 +125,7 @@
 			<strong>Copyright &copy; 2021 <a href="">Cellphone</a>.
 			</strong> All rights reserved.
 		</footer>
+		<div id="select-nav" name-item="home" style="display: none;"></div>
 	</div>
 	<!-- ./wrapper -->
 
@@ -134,15 +134,10 @@
 	<!-- Bootstrap 4 -->
 	<script
 		src="${base}/areas/admin/plugins/bootstrap/js/bootstrap.bundle.min.js "></script>
-
 	<!-- AdminLTE App -->
 	<script src="${base}/areas/admin/dist/js/adminlte.js "></script>
-
-	<script>
-		$(function() {
-			$('.nav-link[name-item="home"]').addClass("active");
-		});
-	</script>
+	<!-- Custom JS -->
+	<script src="${base}/areas/admin/js/script.js"></script>
 </body>
 
 </html>

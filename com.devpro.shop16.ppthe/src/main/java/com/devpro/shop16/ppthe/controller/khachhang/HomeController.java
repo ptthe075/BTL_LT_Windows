@@ -1,6 +1,7 @@
 package com.devpro.shop16.ppthe.controller.khachhang;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.devpro.shop16.ppthe.controller.BaseController;
 import com.devpro.shop16.ppthe.entities.Contact;
+import com.devpro.shop16.ppthe.entities.Slider;
 import com.devpro.shop16.ppthe.entities.Subscribe;
 import com.devpro.shop16.ppthe.services.ContactService;
 import com.devpro.shop16.ppthe.services.ProductService;
@@ -35,8 +37,10 @@ public class HomeController extends BaseController {
 	@RequestMapping(value = { "/", "/home" }, method = RequestMethod.GET)
 	public String home(final Model model, final HttpServletRequest request, final HttpServletResponse response)
 			throws Exception {
-
-//		model.addAttribute("sliders", response);
+		
+		String sql = "SELECT * FROM tbl_silder WHERE is_Hot = 1 AND status = 1";
+		List<Slider> sliders =  sliderService.executeByNativeSQL(sql, 0).getData();
+		model.addAttribute("slidesHome",sliders);
 		model.addAttribute("products", productService.findAll());
 
 		return "khachhang/home/index";

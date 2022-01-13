@@ -73,10 +73,6 @@
 											data-toggle="pill" href="#tabs-list-products" role="tab"
 											aria-controls="tabs-list-products" aria-selected="true">
 												Danh sách sản phẩm </a></li>
-										<li class="nav-item"><a class="nav-link"
-											data-toggle="pill" href="#tabs-list-colors" role="tab"
-											aria-controls="tabs-list-colors" aria-selected="false">
-												Danh sách màu sắc </a></li>
 									</ul>
 								</div>
 								<div class="card-body">
@@ -92,7 +88,6 @@
 														<th style="width: 100px;">Hình ảnh</th>
 														<th style="width: 120px;">Danh mục</th>
 														<th style="width: 150px;">Hãng sản xuất</th>
-														<th style="width: 70px;">Số lượng</th>
 														<th class="text-align-center" style="width: 90px;">Trạng
 															thái</th>
 														<th class="text-align-center" style="width: 90px;">Hành
@@ -109,7 +104,6 @@
 																width="100%"></td>
 															<td>${product.category.name }</td>
 															<td>${product.brand.name }</td>
-															<td class="text-align-center">50</td>
 															<c:choose>
 																<c:when test="${product.status }">
 																	<td class="status-show"><i class="fas fa-eye"></i>
@@ -132,61 +126,6 @@
 																	</c:when>
 																	<c:otherwise>
 																		<a class="btn bg-gradient-danger btn-sm btn-delete-restore" item-id="${product.id}">
-																			<i class="fas fa-sync-alt"></i>
-																		</a>
-																	</c:otherwise>
-																</c:choose>
-															</td>
-														</tr>
-													</c:forEach>
-												</tbody>
-											</table>
-										</div>
-										<div class="tab-pane fade" id="tabs-list-colors"
-											role="tabpanel">
-											<table name-table="table" id="colors"
-												class="table table-bordered table-striped">
-												<thead>
-													<tr>
-														<th class="text-align-center" style="width: 30px;">#</th>
-														<th>Tên màu</th>
-														<th style="width: 150px;">Mã màu</th>
-														<th style="width: 250px;">Ngày tạo</th>
-														<th class="text-align-center" style="width: 90px;">Trạng
-															thái</th>
-														<th class="text-align-center" style="width: 90px;">Hành
-															động</th>
-													</tr>
-												</thead>
-												<tbody>
-													<c:forEach var="color" items="${colors }" varStatus="loop">
-														<tr>
-															<td class="text-align-center">${loop.index + 1}</td>
-															<td>${color.name }</td>
-															<td>
-																<div style="line-height: 31px; text-align: center; background: ${color.hexCode }">${color.hexCode }</div>
-															</td>
-															<td>${color.createdDate }</td>
-															<c:choose>
-																<c:when test="${color.status }">
-																	<td class="status-show"><i class="fas fa-eye"></i> Hiện</td>
-																</c:when>
-																<c:otherwise>
-																	<td class="status-hide"><i class="fas fa-eye-slash"></i> Ẩn</td>
-																</c:otherwise>
-															</c:choose>
-															<td class="text-align-center action-item">
-																<a href="${base }/admin/colors/management/${color.id}" class="btn bg-gradient-primary btn-sm btn-edit">
-																	<i class="fas fa-edit"></i>
-																</a>
-																<c:choose>
-																	<c:when test="${color.status }">
-																		<a class="btn bg-gradient-danger btn-sm btn-delete-restore" item-id="${color.id}">
-																			<i class="fas fa-trash-alt"></i>
-																		</a>
-																	</c:when>
-																	<c:otherwise>
-																		<a class="btn bg-gradient-danger btn-sm btn-delete-restore" item-id="${color.id}">
 																			<i class="fas fa-sync-alt"></i>
 																		</a>
 																	</c:otherwise>

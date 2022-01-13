@@ -68,26 +68,26 @@
 						<div class="card card-primary">
 							<div class="card-body">
 								<sf:form method="post"
-									action="${base}/admin/categories/management"
+									action="${base}/admin/accounts/management"
 									modelAttribute="user" enctype="multipart/form-data">
 									<sf:hidden path="id" />
-									<div class="form-group">
+									<div class="form-group col-md-6">
 										<label for="name">Tên tài khoản (*)</label>
 										<sf:input path="username" type="text" id="name"
 											class="form-control" required="required" />
 									</div>
-									<div class="form-group">
+									<div class="form-group col-md-6">
 										<label for="name">Họ và tên (*)</label>
 										<sf:input path="name" type="text" id="name"
 											class="form-control" required="required" />
 									</div>
-									<div class="form-group">
+									<div class="form-group col-md-6">
 										<label for="email">Địa chỉ email (*)</label>
-										<sf:input path="name" type="email" id="name"
+										<sf:input path="email" type="email" id="email"
 											class="form-control" required="required" />
 									</div>
 									<div class="form-group">
-										<a href="${base}/admin/categories"
+										<a href="${base}/admin/accounts"
 											class="btn btn-lg btn-secondary"> <i class="fas fa-reply"></i>
 											Quay lại
 										</a>

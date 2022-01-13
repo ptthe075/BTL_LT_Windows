@@ -105,7 +105,7 @@
 															<td>${employee.name }</td>
 															<td>${employee.username }</td>
 															<td>${employee.email }</td>
-															<td>${employee.createdDate }</td>
+															<td><fmt:formatDate pattern = "dd/MM/yyyy HH:mm:ss" value = "${employee.createdDate }" /></td>
 															<c:choose>
 																<c:when test="${employee.status }">
 																	<td class="status-show"><i class="fas fa-eye"></i>
@@ -158,7 +158,7 @@
 															<td>${user.name }</td>
 															<td>${user.username }</td>
 															<td>${user.email }</td>
-															<td>${user.createdDate }</td>
+															<td><fmt:formatDate pattern = "dd/MM/yyyy HH:mm:ss" value = "${user.createdDate }" /></td>
 															<td class="text-align-center">
 																<a href="" class="btn bg-gradient-primary btn-sm btn-edit">
 																	<i class="fas fa-comment-dots"></i>

@@ -17,7 +17,7 @@
 					class="img-circle elevation-2" alt="User Image">
 			</div>
 			<div class="info">
-				<a href="#" class="d-block">${userLogined.name}</a>
+				<a href="${base}/admin/my-account" class="d-block">${userLogined.name}</a>
 			</div>
 		</div>
 
@@ -61,8 +61,8 @@
 					name-item="sliders"> <i class="nav-icon fas fa-sliders-h"></i>
 						<p>Slider</p>
 				</a></li>
-				<li class="nav-item"><a href="${base}/admin/info" class="nav-link"
-					name-item="info"> <i class="nav-icon fas fa-info-circle"></i>
+				<li class="nav-item"><a href="${base}/admin/informations" class="nav-link"
+					name-item="informations"> <i class="nav-icon fas fa-info-circle"></i>
 						<p>Thông tin</p>
 				</a></li>
 			</ul>

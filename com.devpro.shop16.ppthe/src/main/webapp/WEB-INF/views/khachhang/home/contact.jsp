@@ -25,7 +25,7 @@
 	<div class="block-breadcrumbs box-shadow">
 		<div class="grid breadcrumbs">
 			<ul class="breadcrumb-list">
-				<li class="breadcrumb-item"><a href="#" class="breadcrumb-link">
+				<li class="breadcrumb-item"><a href="${base}/" class="breadcrumb-link">
 						<i class="fas fa-home breadcrumb-home"></i> Trang chủ
 				</a> <i class="fas fa-angle-right"></i></li>
 				<li class="breadcrumb-item">Liên hệ</li>

@@ -13,19 +13,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.devpro.shop16.ppthe.entities.Brand;
 import com.devpro.shop16.ppthe.entities.Category;
-import com.devpro.shop16.ppthe.entities.Color;
+import com.devpro.shop16.ppthe.entities.Information;
 import com.devpro.shop16.ppthe.entities.Product;
 import com.devpro.shop16.ppthe.entities.Role;
 import com.devpro.shop16.ppthe.entities.Slider;
 import com.devpro.shop16.ppthe.entities.User;
 import com.devpro.shop16.ppthe.services.BrandService;
 import com.devpro.shop16.ppthe.services.CategoryService;
-import com.devpro.shop16.ppthe.services.ColorService;
+import com.devpro.shop16.ppthe.services.InformationService;
 import com.devpro.shop16.ppthe.services.ProductService;
 import com.devpro.shop16.ppthe.services.SliderService;
+import com.devpro.shop16.ppthe.services.UserService;
 
 public abstract class BaseController {
 	@Autowired
@@ -36,12 +38,13 @@ public abstract class BaseController {
 
 	@Autowired
 	protected BrandService brandService;
-	
-	@Autowired
-	protected ColorService colorService;
 
 	@Autowired
-	private SliderService sliderService;
+	protected SliderService sliderService;
+	
+	@Autowired
+	protected InformationService informationService;
+	
 
 	@ModelAttribute("categories")
 	public List<Category> getAllCategories() {
@@ -52,16 +55,11 @@ public abstract class BaseController {
 	public List<Brand> getAllBrands() {
 		return brandService.findAll();
 	}
-	
-	@ModelAttribute("colors")
-	public List<Color> getAllColors() {
-		return colorService.findAll(); 
-	}	
 
-	@ModelAttribute("sliders")
-	public List<Slider> getAllSliders() {
-		return sliderService.findAll();
-	}
+//	@ModelAttribute("sliders")
+//	public List<Slider> getAllSliders() {
+//		return sliderService.findAll();
+//	}
 
 	@ModelAttribute("isLogined")
 	public boolean isLogined() {
@@ -73,7 +71,6 @@ public abstract class BaseController {
 		return isLogined;
 	}
 	
-
 	@ModelAttribute("userLogined")
 	public User getUserLogined() {
 		Object userLogined = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -98,6 +95,17 @@ public abstract class BaseController {
 		return false;
 	}
 	
+	@ModelAttribute("categoryParents")
+	public List<Category> categoryParents(){
+		String sql = "SELECT * FROM tbl_category WHERE parent_id IS NULL";
+		return categoryService.executeByNativeSQL(sql, 0).getData();
+	}
+	
+	@ModelAttribute("infomations")
+	public List<Information> infomations(){
+		return informationService.findAll();
+	}
+	
 	private Map<Integer, Set<Brand>> brandGroupByCategory;
 
 	@ModelAttribute("menu")
@@ -117,8 +125,7 @@ public abstract class BaseController {
 		
 		StringBuilder menu = new StringBuilder();
 
-		String sql = "SELECT * FROM tbl_category WHERE parent_id IS NULL";
-		List<Category> categoryParents = categoryService.executeByNativeSQL(sql, 0).getData();
+		List<Category> categoryParents = categoryParents();
 
 		for (Category c : categoryParents) {
 			menu.append(
@@ -130,7 +137,7 @@ public abstract class BaseController {
 			menu.append(c.getName() + "</div>");
 			
 			Set<Brand> listBrand = brandGroupByCategory.get(c.getId());
-			if (c.getChilds() != null && !c.getChilds().isEmpty() || !listBrand.isEmpty() && listBrand != null) {
+			if (c.getChilds() != null && !c.getChilds().isEmpty() || listBrand != null && !listBrand.isEmpty()) {
 				menu.append("<i class=\"fas fa-angle-right menu-item__icon\"></i></a>");
 				menu.append("<ul class=\"menu-list__sub box-shadow\">");
 				if(listBrand != null && !listBrand.isEmpty()) {
@@ -166,7 +173,7 @@ public abstract class BaseController {
 			menu.append(c.getName() + "</div>");
 
 			Set<Brand> listBrand = brandGroupByCategory.get(c.getId());
-			if (c.getChilds() != null && !c.getChilds().isEmpty() || !listBrand.isEmpty() && listBrand != null) {
+			if (c.getChilds() != null && !c.getChilds().isEmpty() || listBrand != null && !listBrand.isEmpty()) {
 				menu.append("<i class=\"fas fa-angle-right menu-item__icon\"></i></a>");
 				menu.append("<ul class=\"menu-list__sub box-shadow\">");
 				if(listBrand != null && !listBrand.isEmpty()) {

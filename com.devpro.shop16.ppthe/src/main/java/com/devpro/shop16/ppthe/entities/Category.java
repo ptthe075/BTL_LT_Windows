@@ -21,10 +21,7 @@ public class Category extends BaseEntity {
 
 	@Column(name = "image", length = 100, nullable = true)
 	private String image;
-
-	@Column(name = "description", length = 100, nullable = true)
-	private String description;
-
+	
 	@Column(name = "seo", length = 1000, nullable = true)
 	private String seo;
 
@@ -72,14 +69,6 @@ public class Category extends BaseEntity {
 
 	public void setImage(String image) {
 		this.image = image;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
 	}
 
 	public String getSeo() {

@@ -49,7 +49,6 @@ public class LoginController{
 
 		Map<String, Object> jsonResult = new HashMap<String, Object>();
 		jsonResult.put("code", 200);
-		jsonResult.put("message", "Đăng ký tài khoản thành công!");
 
 		return ResponseEntity.ok(jsonResult);
 	}

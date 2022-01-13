@@ -12,7 +12,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Contacts</title>
+<title>Informations</title>
 
 <!-- Google Font: Source Sans Pro -->
 <link rel="stylesheet"
@@ -51,7 +51,7 @@
 				<div class="container-fluid">
 					<div class="row mb-2">
 						<div class="col-sm-6">
-							<h1 class="m-0">Quản lý liên hệ</h1>
+							<h1 class="m-0">Quản lý thông tin về công ty</h1>
 						</div>
 					</div>
 					<!-- /.row -->
@@ -70,73 +70,60 @@
 									<ul class="nav nav-tabs" id="custom-tabs-four-tab"
 										role="tablist">
 										<li class="nav-item"><a class="nav-link active"
-											data-toggle="pill" href="#tabs-list-contacts" role="tab"
-											aria-controls="tabs-list-contacts" aria-selected="true">
-												Danh sách liên hệ </a></li>
-										<li class="nav-item"><a class="nav-link"
-											data-toggle="pill" href="#tabs-list-subscribes" role="tab"
-											aria-controls="tabs-list-subscribes" aria-selected="true">
-												Danh sách khách hàng đăng ký </a></li>
+											data-toggle="pill" href="#tabs-list-informations" role="tab"
+											aria-controls="tabs-list-informations" aria-selected="true">
+												Thông tin về công ty </a></li>
 									</ul>
 								</div>
 								<div class="card-body">
 									<div class="tab-content">
-										<div class="tab-pane fade show active" id="tabs-list-contacts"
+										<div class="tab-pane fade show active" id="tabs-list-informations"
 											role="tabpanel">
-											<table name-table="table" id="contacts"
+											<table name-table="table" id="informations"
 												class="table table-bordered table-striped">
 												<thead>
 													<tr>
 														<th class="text-align-center" style="width: 30px;">#</th>
-														<th>Họ và tên</th>
-														<th>Email</th>
-														<th>Nội dung tin nhắn</th>
-														<th>Phản hồi</th>
+														<th>Tên tiêu đề</th>
+														<th>Ngày tạo</th>
+														<th class="text-align-center" style="width: 90px;">Trạng
+															thái</th>
 														<th class="text-align-center" style="width: 90px;">Hành
 															động</th>
 													</tr>
 												</thead>
 												<tbody>
-													<c:forEach var="contact" items="${contacts }" varStatus="loop">
+													<c:forEach var="info" items="${informations }" varStatus="loop">
 														<tr>
 															<td class="text-align-center">${loop.index + 1}</td>
-															<td>${contact.fullName }</td>
-															<td>${contact.email }</td>
-															<td>${contact.message }</td>
-															<td>${contact.reply }</td>
-															<td class="text-align-center">
-																<a href="" class="btn bg-gradient-primary btn-sm btn-edit">
-																	<i class="fas fa-comment-dots"></i>
+															<td>${info.name }</td>
+															<td><fmt:formatDate pattern = "dd/MM/yyyy HH:mm:ss" value = "${info.createdDate }" /></td>
+															<c:choose>
+																<c:when test="${info.status }">
+																	<td class="status-show"><i class="fas fa-eye"></i>
+																		Hiện</td>
+																</c:when>
+																<c:otherwise>
+																	<td class="status-hide"><i
+																		class="fas fa-eye-slash"></i> Ẩn</td>
+																</c:otherwise>
+															</c:choose>
+															<td class="text-align-center action-item">
+																<a href="${base }/admin/informations/management/${info.id}" class="btn bg-gradient-primary btn-sm btn-edit">
+																	<i class="fas fa-edit"></i>
 																</a>
-															</td>
-														</tr>
-													</c:forEach>
-												</tbody>
-											</table>
-										</div>
-										<div class="tab-pane fade" id="tabs-list-subscribes"
-											role="tabpanel">
-											<table name-table="table" id="subscribes"
-												class="table table-bordered table-striped">
-												<thead>
-													<tr>
-														<th class="text-align-center" style="width: 30px;">#</th>
-														<th>Địa chỉ email</th>
-														<th>Ngày đăng ký</th>
-														<th class="text-align-center" style="width: 90px;">Hành
-															động</th>
-													</tr>
-												</thead>
-												<tbody>
-													<c:forEach var="subscribe" items="${subscribes }" varStatus="loop">
-														<tr>
-															<td class="text-align-center">${loop.index + 1}</td>
-															<td>${subscribe.email }</td>
-															<td><fmt:formatDate pattern = "dd/MM/yyyy HH:mm:ss" value = "${subscribe.createdDate }" /></td>
-															<td class="text-align-center">
-																<a href="" class="btn bg-gradient-primary btn-sm btn-edit">
-																	<i class="fas fa-comment-dots"></i>
-																</a>
+																<c:choose>
+																	<c:when test="${info.status }">
+																		<a class="btn bg-gradient-danger btn-sm btn-delete-restore" item-id="${info.id}">
+																			<i class="fas fa-trash-alt"></i>
+																		</a>
+																	</c:when>
+																	<c:otherwise>
+																		<a class="btn bg-gradient-danger btn-sm btn-delete-restore" item-id="${info.id}">
+																			<i class="fas fa-sync-alt"></i>
+																		</a>
+																	</c:otherwise>
+																</c:choose>
 															</td>
 														</tr>
 													</c:forEach>
@@ -163,7 +150,7 @@
 			</strong> All rights reserved.
 		</footer>
 
-		<div id="select-nav" name-item="contacts" style="display: none;"></div>
+		<div id="select-nav" name-item="informations" style="display: none;"></div>
 	</div>
 	<!-- ./wrapper -->
 
@@ -172,6 +159,8 @@
 	<!-- Bootstrap 4 -->
 	<script
 		src="${base}/areas/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<!-- Sweetalert 2 -->
+	<script src="${base}/assets/lib/sweetalert/sweetalert2.all.min.js"></script>
 	<!-- DataTables  & Plugins -->
 	<script src="${base}/areas/admin/plugins/datatables/jquery.dataTables.min.js"></script>
 	<script

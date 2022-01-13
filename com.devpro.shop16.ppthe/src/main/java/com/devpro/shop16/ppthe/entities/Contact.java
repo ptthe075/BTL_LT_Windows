@@ -16,8 +16,8 @@ public class Contact extends BaseEntity {
 	@Column(name = "message", length = 1000, nullable = false)
 	private String message;
 	
-	@Column(name = "request_type", length = 45, nullable = true)
-	private String requestType;
+	@Column(name = "reply", length = 45, nullable = true)
+	private String reply;
 
 	public String getFullName() {
 		return fullName;
@@ -35,20 +35,20 @@ public class Contact extends BaseEntity {
 		this.email = email;
 	}
 
-	public String getRequestType() {
-		return requestType;
-	}
-
-	public void setRequestType(String requestType) {
-		this.requestType = requestType;
-	}
-
 	public String getMessage() {
 		return message;
 	}
 
 	public void setMessage(String message) {
 		this.message = message;
+	}
+
+	public String getReply() {
+		return reply;
+	}
+
+	public void setReply(String reply) {
+		this.reply = reply;
 	}
 
 }

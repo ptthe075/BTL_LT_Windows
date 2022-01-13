@@ -30,13 +30,16 @@ public class Product extends BaseEntity {
 	@Column(name = "price_sale", precision = 13, scale = 2, nullable = true)
 	private BigDecimal priceSale;
 
+	@Column(name = "short_description", length = 3000, nullable = false)
+	private String shortDes;
+
+	@Lob
+	@Column(name = "detail_description", nullable = false, columnDefinition = "LONGTEXT")
+	private String details;
+
 	@Lob
 	@Column(name = "specifications", columnDefinition = "LONGTEXT", nullable = true)
 	private String specifications;
-
-	@Lob
-	@Column(name = "description", columnDefinition = "LONGTEXT", nullable = true)
-	private String description;
 
 	@Column(name = "is_hot", nullable = true)
 	private Boolean isHot = Boolean.FALSE;
@@ -77,19 +80,6 @@ public class Product extends BaseEntity {
 		this.saleorderProducts.remove(saleorderProduct);
 		saleorderProduct.setProduct(null);
 	}
-	
-	@OneToMany(mappedBy = "pk.product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private Set<ProductColor> productColors = new HashSet<ProductColor>();
-	
-	public void addProductColor(ProductColor productColor) {
-		this.productColors.add(productColor);
-		productColor.getPk().setProduct(this);
-	}
-
-	public void deleteProductColor(ProductColor productColor) {
-		this.productColors.remove(productColor);
-		productColor.getPk().setProduct(null);
-	}
 
 	public String getName() {
 		return name;
@@ -123,20 +113,28 @@ public class Product extends BaseEntity {
 		this.priceSale = priceSale;
 	}
 
+	public String getShortDes() {
+		return shortDes;
+	}
+
+	public void setShortDes(String shortDes) {
+		this.shortDes = shortDes;
+	}
+
+	public String getDetails() {
+		return details;
+	}
+
+	public void setDetails(String details) {
+		this.details = details;
+	}
+
 	public String getSpecifications() {
 		return specifications;
 	}
 
 	public void setSpecifications(String specifications) {
 		this.specifications = specifications;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
 	}
 
 	public Boolean getIsHot() {
@@ -158,7 +156,7 @@ public class Product extends BaseEntity {
 	public Category getCategory() {
 		return category;
 	}
-	
+
 	public Integer getCategoryId() {
 		return category.getId();
 	}
@@ -189,14 +187,6 @@ public class Product extends BaseEntity {
 
 	public void setSaleorderProducts(Set<SaleOrderProduct> saleorderProducts) {
 		this.saleorderProducts = saleorderProducts;
-	}
-
-	public Set<ProductColor> getProductColors() {
-		return productColors;
-	}
-
-	public void setProductColors(Set<ProductColor> productColors) {
-		this.productColors = productColors;
 	}
 
 }

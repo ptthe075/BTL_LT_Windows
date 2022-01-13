@@ -37,8 +37,8 @@ public class AdminProductController extends BaseController {
 	@RequestMapping(value = { "/management" }, method = RequestMethod.GET)
 	public String adminProductAdd(final Model model, final HttpServletRequest request,
 			final HttpServletResponse response) throws Exception {
-
-		model.addAttribute("product", new Product());
+		
+		model.addAttribute("product", new Product()); 
 
 		return "quantrivien/products/product_management";
 	}

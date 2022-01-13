@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <footer class="footer box-shadow">
 	<div class="footer__subscribe">
 		<div class="grid">
@@ -11,8 +15,6 @@
 					<input type="text" id="emailSubscribe"
 						placeholder="Nhập email để nhận tin khuyến mãi">
 					<button type="button" class="footer__subscribe-btn" onclick="subscribe('${base}');">Gửi</button>
-					<div class="alert-wrapper box-shadow border-radius">Lỗi nhập
-						vào</div>
 				</form>
 			</div>
 		</div>
@@ -22,37 +24,29 @@
 			<div class="col lg-6 c-12 footer__menu">
 				<div class="row">
 					<div class="col c-6 footer__menu-info">
-						<a href="#" class="footer__menu-title">Về Cellphone</a>
+						<a class="footer__menu-title">Về Cellphone</a>
 						<ul class="footer__menu-list">
-							<li class="footer__menu-item"><a href="#"
-								class="footer__menu-link">Giới thiệu</a></li>
-							<li class="footer__menu-item"><a href="#"
-								class="footer__menu-link">Chính sách</a></li>
-							<li class="footer__menu-item"><a href="#"
-								class="footer__menu-link">Quy định</a></li>
-							<li class="footer__menu-item"><a href="#"
-								class="footer__menu-link">Tin công nghệ</a></li>
-							<li class="footer__menu-item"><a href="#"
-								class="footer__menu-link">Liên hệ</a></li>
-							<li class="footer__menu-item"><a href="#"
-								class="footer__menu-link">Hướng dẫn mua hàng</a></li>
+							<c:forEach var="info" items="${infomations }">
+								<li class="footer__menu-item">
+									<a href="#" class="footer__menu-link">${info.name }</a>
+								</li>
+							</c:forEach>
+							<li class="footer__menu-item">
+								<a href="#" class="footer__menu-link">Tin công nghệ</a>
+							</li>
+							<li class="footer__menu-item">
+								<a href="${base }/contact" class="footer__menu-link">Liên hệ</a>
+							</li>
 						</ul>
 					</div>
 					<div class="col c-6 footer__menu-info">
 						<div class="footer__menu-title">Sản phẩm</div>
 						<ul class="footer__menu-list">
-							<li class="footer__menu-item"><a href="#"
-								class="footer__menu-link">Điện thoại</a></li>
-							<li class="footer__menu-item"><a href="#"
-								class="footer__menu-link">Laptop</a></li>
-							<li class="footer__menu-item"><a href="#"
-								class="footer__menu-link">Máy tính bảng</a></li>
-							<li class="footer__menu-item"><a href="#"
-								class="footer__menu-link">Đồng hồ</a></li>
-							<li class="footer__menu-item"><a href="#"
-								class="footer__menu-link">Phụ kiện</a></li>
-							<li class="footer__menu-item"><a href="#"
-								class="footer__menu-link">Khuyến mại</a></li>
+							<c:forEach var="category" items="${categoryParents }">
+								<li class="footer__menu-item">
+									<a href="#" class="footer__menu-link">${category.name }</a>
+								</li>
+							</c:forEach>
 						</ul>
 					</div>
 				</div>

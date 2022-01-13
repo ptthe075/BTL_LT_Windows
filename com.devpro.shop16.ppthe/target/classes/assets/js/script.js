@@ -106,15 +106,14 @@ function subscribe(baseUrl) {
 			success: function(jsonResult) {
 
 				if (jsonResult.err) {
-					alert(jsonResult.err);
+					Swal.fire('Thất bại', jsonResult.err, 'error');
 				} else {
-					alert(jsonResult.message);
+					Swal.fire('Thành công', jsonResult.message, 'success');
 				}
 				email.val("");
 			}
 		});
 	}
-
 }
 
 //#region Subscribe
@@ -123,7 +122,7 @@ function ValidateEmail(inputText) {
 	if (inputText.val().match(mailformat)) {
 		return true;
 	} else {
-		alert("Cú pháp email không đúng");
+		Swal.fire('Thất bại', 'Cú pháp nhập email không đúng', 'error');
 		inputText.val("");
 		return false;
 	}

@@ -14,7 +14,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cellphone</title>
+<title>Product</title>
 
 <!-- Google Font: Source Sans Pro -->
 <link rel="stylesheet"
@@ -121,15 +121,21 @@
 										</div>
 									</div>
 									<div class="form-group">
-										<label for="specifications">Thông số kỹ thuật (*)</label>
-										<sf:textarea path="specifications"
-											class="form-control summernote" id="specifications"
+										<label for="shortDes">Mô tả ngắn (*)</label>
+										<sf:textarea autocomplete="off" path="shortDes"
+											class="form-control" id="shortDes"
 											required="required"></sf:textarea>
 									</div>
 									<div class="form-group">
-										<label for="description">Mô tả sản phẩm (*)</label>
-										<sf:textarea autocomplete="off" path="description"
-											class="form-control summernote" id="description"
+										<label for="details">Mô tả chi tiết (*)</label>
+										<sf:textarea autocomplete="off" path="details"
+											class="form-control summernote" id="details"
+											required="required"></sf:textarea>
+									</div>
+									<div class="form-group">
+										<label for="specifications">Thông số kỹ thuật (*)</label>
+										<sf:textarea path="specifications"
+											class="form-control summernote" id="specifications"
 											required="required"></sf:textarea>
 									</div>
 									<div class="form-group">
@@ -142,17 +148,8 @@
 										<sf:input path="priceSale" type="number" id="priceSale"
 											class="form-control" />
 									</div>
-									<div class="form-group">
-										<label>Màu sắc (*)</label>
-										<!-- 
-											<c:forEach var="color" items="productColors">
-												<sf:select path="productColors" class="form-control custom-select">
-													<sf:options items="${colors }" itemValue="id" itemLabel="name" />
-												</sf:select>
-											</c:forEach> -->
-										</div>
 									<div class="form-group form-check">
-										<sf:checkbox path="isHot" class="form-check-input" id="isHot" />
+										<sf:checkbox path="isHot" class="form-check-input" id="isHot" checked="checked"/>
 										<label for="isHot">Là sản phẩm Hot?</label>
 									</div>
 									<div class="form-group">

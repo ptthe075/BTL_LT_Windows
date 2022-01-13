@@ -14,7 +14,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cellphone</title>
+<title>Brand</title>
 
 <!-- Google Font: Source Sans Pro -->
 <link rel="stylesheet"
@@ -24,9 +24,6 @@
 	href="${base}/areas/admin/plugins/fontawesome-free/css/all.min.css">
 <!-- Theme style -->
 <link rel="stylesheet" href="${base}/areas/admin/dist/css/adminlte.min.css">
-<!-- summernote -->
-<link rel="stylesheet"
-	href="${base}/areas/admin/plugins/summernote/summernote-bs4.min.css">
 
 <!-- Custom CSS -->
 <link rel="stylesheet" href="${base}/areas/admin/css/item.style.css">
@@ -76,27 +73,29 @@
 								<sf:form method="post" action="${base}/admin/brands/management"
 									modelAttribute="brand" enctype="multipart/form-data">
 									<sf:hidden path="id" />
-									<div class="form-group">
-										<label for="name">Tên thương hiệu (*)</label>
-										<sf:input path="name" type="text" id="name"
-											class="form-control" required="required" />
-									</div>
-									<div class="form-group">
-										<label>Ảnh thương hiệu (*)</label>
-										<div class="display_img-avatar" style="width: 420px">
-											<c:choose>
-												<c:when test="${empty brand.image}">
-													<img src="${base}/areas/admin/dist/img/upload_img.png"
-														class="upload-img">
-												</c:when>
-												<c:otherwise>
-													<img src="${base }/Upload/Brands/${brand.image}"
-														class="upload-img">
-												</c:otherwise>
-											</c:choose>
-											<label for="img-avatar" class="display_img-change ">Chọn
-												ảnh</label> <input type="file" id="img-avatar" class="change-img"
-												name="add_img-avatar" hidden>
+									<div class="row">
+										<div class="form-group col-md-6">
+											<label for="name">Tên thương hiệu (*)</label>
+											<sf:input path="name" type="text" id="name"
+												class="form-control" required="required" />
+										</div>
+										<div class="form-group col-md-6">
+											<label>Ảnh thương hiệu (*)</label>
+											<div class="display_img-avatar" style="width: 420px">
+												<c:choose>
+													<c:when test="${empty brand.image}">
+														<img src="${base}/areas/admin/dist/img/upload_img.png"
+															class="upload-img">
+													</c:when>
+													<c:otherwise>
+														<img src="${base }/Upload/Brands/${brand.image}"
+															class="upload-img">
+													</c:otherwise>
+												</c:choose>
+												<label for="img-avatar" class="display_img-change ">Chọn
+													ảnh</label> <input type="file" id="img-avatar" class="change-img"
+													name="add_img-avatar" hidden>
+											</div>
 										</div>
 									</div>
 									<div class="form-group">
@@ -139,8 +138,6 @@
 	<!-- Bootstrap 4 -->
 	<script
 		src="${base}/areas/admin/plugins/bootstrap/js/bootstrap.bundle.min.js "></script>
-	<!-- Summernote -->
-	<script src="${base}/areas/admin/plugins/summernote/summernote-bs4.min.js "></script>
 
 	<!-- AdminLTE App -->
 	<script src="${base}/areas/admin/dist/js/adminlte.js "></script>

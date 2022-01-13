@@ -123,3 +123,51 @@ $(function() {
 
 	//#endregion delete or restore item
 });
+function updatePassword(baseUrl) {
+	var passNew = $("#passNew").val();
+	var passNewConfirm = $("#passNewConfirm").val();
+	let data = {
+		id: $("#id").val(),
+		password: $("#passOld").val(),
+	};
+	$.ajax({
+		url: baseUrl + "/ajax/account/check-pass",
+		type: "post",
+		contentType: "application/json",
+		data: JSON.stringify(data),
+		dataType: "json",
+		success: function(jsonResult) {
+			if (jsonResult.status) {
+				if (passNew === passNewConfirm) {
+					data.password = passNew;
+					$.ajax({
+						url: baseUrl + "/ajax/account/change-pass",
+						type: "post",
+						contentType: "application/json",
+						data: JSON.stringify(data),
+						dataType: "json",
+						success: function(jsonResult) {
+							Swal.fire(
+								'Thành công',
+								'Đổi mật khẩu thành công',
+								'success'
+							)
+						}
+					});
+				} else {
+					Swal.fire(
+						'Thất bại',
+						'Mật khẩu mới không trùng nhau',
+						'error'
+					)
+				}
+			} else {
+				Swal.fire(
+					'Thất bại',
+					'Mật khẩu cũ không chinh xác',
+					'error'
+				)
+			}
+		}
+	});
+}
