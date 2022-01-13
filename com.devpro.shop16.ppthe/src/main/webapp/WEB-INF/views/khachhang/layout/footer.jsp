@@ -44,7 +44,7 @@
 						<ul class="footer__menu-list">
 							<c:forEach var="category" items="${categoryParents }">
 								<li class="footer__menu-item">
-									<a href="#" class="footer__menu-link">${category.name }</a>
+									<a href="${base}/category/${category.seo}" class="footer__menu-link">${category.name }</a>
 								</li>
 							</c:forEach>
 						</ul>

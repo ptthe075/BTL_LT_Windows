@@ -118,12 +118,12 @@
 										<c:choose>
 											<c:when test="${loop.index % 2 == 0}">
 												<div class="item-brand">
-													<a href="${brand.seo}" class="item-brand__link border-radius"> <img
+													<a href="${base}/brand/${brand.seo}" class="item-brand__link border-radius"> <img
 														src="${base}/Upload/Brands/${brand.image}" width="100%" alt="">
 													</a>
 											</c:when>
 											<c:otherwise>
-													<a href="${brand.seo}" class="item-brand__link border-radius"> <img
+													<a href="${base}/brand/${brand.seo}" class="item-brand__link border-radius"> <img
 														src="${base}/Upload/Brands/${brand.image}" width="100%" alt="">
 													</a>
 												</div>
@@ -136,73 +136,7 @@
 						</div>
 					</div>
 				</div>
-
-				<div class="col c-12 block-container">
-					<div class="border-radius box-shadow">
-						<div class="col c-4 box-title">
-							<a href="#" class="box-title__title">
-								<h2>Điện thoại nổi bật</h2>
-							</a>
-						</div>
-						<div class="col c-12 box-list__wrapper">
-							<div class="btn-action__prev" name-category="phone">
-								<i class="fas fa-chevron-left"></i>
-							</div>
-							<div class="btn-action__next" name-category="phone">
-								<i class="fas fa-chevron-right"></i>
-							</div>
-							<div class="row">
-								<div class="col c-12 list-product" name-category="phone">
-									<c:forEach var="product" items="${products}" varStatus="loop">
-										<div class="item-product border-radius border-1 margin-12-6">
-											<c:if test="${not empty product.priceSale}">
-												<div class="item-product__percent">
-												<c:set var="discount" value="${(100 - (product.priceSale / product.price) * 100)}"/>
-													<p>giảm  <fmt:formatNumber value="${discount}" maxFractionDigits="0" type="number"/>%</p>
-												</div>
-											</c:if>
-											<div class="item-product__img">
-												<a href="${base}/product/detail/${product.seo}"> <img
-													src="${base}/Upload/Products/${product.avatar}" width="100%"
-													alt="">
-												</a>
-											</div>
-											<div class="item-product__name">
-												<a href="${base}/product/detail/${product.seo}">${product.name}</a>
-											</div>
-											
-											<div class="item-product__price">
-												<c:choose>
-													<c:when test="${empty product.priceSale}">
-														<div class="special-price">
-															<fmt:formatNumber value="${product.price}" pattern="###,### ₫" type="number"/>
-														</div>
-													</c:when>
-													<c:otherwise>
-														<div class="special-price">
-															<fmt:formatNumber value="${product.priceSale}" pattern="###,### ₫" type="number"/>
-														</div>
-														<div class="old-price">
-															<fmt:formatNumber value="${product.price}" pattern="###,### ₫" type="number"/>
-														</div>
-													</c:otherwise>
-												</c:choose>
-											</div>
-											<div class="item-product__action">
-												<div class="item-product__rating">
-													
-												</div>
-												<a onclick="javascript:AddToCart('${base}', ${product.id}, 1);" class="item-product__cart"> <i
-													class="fas fa-cart-plus"></i>
-												</a>
-											</div>
-										</div>
-									</c:forEach>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+				${hotProducts }
 			</div>
 		</div>
 	</div>

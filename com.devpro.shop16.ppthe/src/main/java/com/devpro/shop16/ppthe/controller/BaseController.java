@@ -56,10 +56,10 @@ public abstract class BaseController {
 		return brandService.findAll();
 	}
 
-//	@ModelAttribute("sliders")
-//	public List<Slider> getAllSliders() {
-//		return sliderService.findAll();
-//	}
+	@ModelAttribute("sliders")
+	public List<Slider> getAllSliders() {
+		return sliderService.findAll();
+	}
 
 	@ModelAttribute("isLogined")
 	public boolean isLogined() {
@@ -97,7 +97,7 @@ public abstract class BaseController {
 	
 	@ModelAttribute("categoryParents")
 	public List<Category> categoryParents(){
-		String sql = "SELECT * FROM tbl_category WHERE parent_id IS NULL";
+		String sql = "SELECT * FROM tbl_category WHERE parent_id IS NULL AND status = 1";
 		return categoryService.executeByNativeSQL(sql, 0).getData();
 	}
 	
@@ -129,7 +129,7 @@ public abstract class BaseController {
 
 		for (Category c : categoryParents) {
 			menu.append(
-					"<li class=\"menu-item\"><a href=\"#\" class=\"menu-item__link\"> <div class=\"menu-item__name\">");
+					"<li class=\"menu-item\"><a href=\"/category/"+c.getSeo()+"\" class=\"menu-item__link\"> <div class=\"menu-item__name\">");
 			
 			if (c.getImage() != null && !c.getImage().isEmpty()) {
 				menu.append("<i class=\"menu-item__img\" style=\"background: url('/Upload/Categories/" + c.getImage() + "') no-repeat center / contain;\"></i>");
@@ -141,7 +141,7 @@ public abstract class BaseController {
 				menu.append("<i class=\"fas fa-angle-right menu-item__icon\"></i></a>");
 				menu.append("<ul class=\"menu-list__sub box-shadow\">");
 				if(listBrand != null && !listBrand.isEmpty()) {
-					buildBrand(menu, listBrand);
+					buildBrand(menu, listBrand, c.getSeo());
 				}
 				if(c.getChilds() != null && !c.getChilds().isEmpty()) {
 					buildSubMenu(menu, c.getChilds());					
@@ -157,9 +157,9 @@ public abstract class BaseController {
 		return menu.toString();
 	}
 
-	private void buildBrand(StringBuilder menu, Set<Brand> listBrand) {
+	private void buildBrand(StringBuilder menu, Set<Brand> listBrand, String categorySeo) {
 		for (Brand b : listBrand) {
-			menu.append("<li class=\"menu-item\"><a href=\"#\" class=\"menu-item__link\"> <div class=\"menu-item__name\">"+b.getName() + "</div></a></li>");
+			menu.append("<li class=\"menu-item\"><a href=\"/search/"+categorySeo+"/"+b.getSeo()+"\" class=\"menu-item__link\"> <div class=\"menu-item__name\">"+b.getName() + "</div></a></li>");
 		}
 	}
 
@@ -177,7 +177,7 @@ public abstract class BaseController {
 				menu.append("<i class=\"fas fa-angle-right menu-item__icon\"></i></a>");
 				menu.append("<ul class=\"menu-list__sub box-shadow\">");
 				if(listBrand != null && !listBrand.isEmpty()) {
-					buildBrand(menu, listBrand);
+					buildBrand(menu, listBrand, c.getSeo());
 				}
 				if(c.getChilds() != null && !c.getChilds().isEmpty()) {
 					buildSubMenu(menu, c.getChilds());					

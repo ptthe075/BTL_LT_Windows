@@ -82,6 +82,15 @@ function AddToCart(baseUrl, productId, quanlity) {
 			if($("#iconShowTotalItemsInCart").css("display") == "none"){				
 				$("#iconShowTotalItemsInCart").css("display","flex");
 			}
+			
+			Swal.fire({
+				toast: true,
+				position: 'top-end',
+				showConfirmButton: false,
+				title: 'Đã thêm sản phẩm vào giỏ hàng',
+				icon: 'success',
+				timer: 1500,
+			})
 		}
 	});
 }
