@@ -39,7 +39,7 @@ public class ProductService extends BaseService<Product> {
 	private boolean isEmptyUploadFile(MultipartFile image) {
 		return image == null || image.getOriginalFilename().isEmpty();
 	}
-	
+
 	public PagerData<Product> search(ProductSearchModel searchModel) {
 
 		// khởi tạo câu lệnh
@@ -49,6 +49,11 @@ public class ProductService extends BaseService<Product> {
 			// tìm kiếm theo category
 			if (searchModel.categoryId != null) {
 				sql += " and category_id = " + searchModel.categoryId;
+			}
+
+			// tìm kiếm theo brand
+			if (searchModel.brandId != null) {
+				sql += " and brand_id = " + searchModel.brandId;
 			}
 
 			// tìm theo seo
@@ -67,8 +72,7 @@ public class ProductService extends BaseService<Product> {
 			}
 		}
 
-		// chi lay san pham chua xoa
-//		sql += " and p.status=1 ";
+		sql += " and p.status=1 ";
 		return executeByNativeSQL(sql, searchModel == null ? 0 : searchModel.getPage());
 
 	}
@@ -132,8 +136,8 @@ public class ProductService extends BaseService<Product> {
 
 		String path = UPLOAD_FOLDER_ROOT + "Products/";
 		Product productInDb = super.getById(p.getId());
-		
-		//p.setCreatedDate(productInDb.getCreatedDate());
+
+		// p.setCreatedDate(productInDb.getCreatedDate());
 
 		if (!isEmptyUploadFile(productAvatar)) {
 			String pathSub = p.getId() + "/Avatar/";

@@ -80,6 +80,14 @@ public class Product extends BaseEntity {
 		this.saleorderProducts.remove(saleorderProduct);
 		saleorderProduct.setProduct(null);
 	}
+	
+	public boolean hasParentCategory(Category c){
+		if(this.category.getId() == c.getId()) {
+			return true;
+		}else {
+			return this.category.hasParentCategory(c);
+		}
+	}
 
 	public String getName() {
 		return name;

@@ -110,14 +110,14 @@
 	                                    Màu Xanh
 	                                </div>
 	                                <div class="cart-col-price" value="${ci.priceUnit}">
-	                                    <fmt:formatNumber value="${ci.priceUnit}" pattern="###.### ₫" type="number"/>
+	                                    <fmt:formatNumber value="${ci.priceUnit}" pattern="###,### ₫" type="number"/>
 	                                </div>
 	                                <div class="cart-col-quantity">
 	                                    <a href="" class="cart-quantity__change" data-value="-1"> - </a>
 	                                    <input type="number" class="cart-quantity__input" value="${ci.quantity}">
 	                                    <a href="" class="cart-quantity__change" data-value="1"> + </a>
 	                                </div>
-	                                <div class="cart-col-total-price"><fmt:formatNumber value="${ci.priceUnit * ci.quantity}" pattern="###.### ₫" type="number"/></div>
+	                                <div class="cart-col-total-price"><fmt:formatNumber value="${ci.priceUnit * ci.quantity}" pattern="###,### ₫" type="number"/></div>
 	                                <div class="cart-col-delete">
 	                                    <i class="fas fa-trash-alt"></i> Xóa
 	                                </div>
@@ -179,7 +179,7 @@
                             <div class="">
                                 Tổng tiền hàng: 
                                 <b class="red text-22 font-600" id="js-total-cart-payment">
-                                	<fmt:formatNumber value="${cart.totalPrice }" pattern="###.### ₫" type="number"/>
+                                	<fmt:formatNumber value="${cart.totalPrice }" pattern="###,### ₫" type="number"/>
                                 </b>
                             </div>
 
@@ -199,6 +199,7 @@
 	<script src="${base}/assets/lib/jquery/jquery.min.js"></script>
 	<script src="${base}/assets/lib/slick/js/slick.min.js"></script>
 	<script src="${base}/assets/lib/slick/js/slick.script.js"></script>
+	<script src="${base}/assets/lib/sweetalert/sweetalert2.all.min.js"></script>
 	<script src="${base}/assets/js/product.js"></script>
 	<script src="${base}/assets/js/script.js"></script>
 </body>

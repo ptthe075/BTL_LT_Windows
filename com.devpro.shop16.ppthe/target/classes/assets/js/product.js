@@ -197,6 +197,14 @@ function DeleteItemCart(baseUrl, productId) {
 			}
 			$("#iconShowTotalItemsInCart").html(jsonResult.totalItems);
 			$( "#js-total-cart-payment").html(formatNumber(jsonResult.totalPrice, 0, ',', '.'));
+			Swal.fire({
+				toast: true,
+				position: 'top-end',
+				showConfirmButton: false,
+				title: 'Đã xóa sản phẩm khỏi giỏ hàng',
+				icon: 'success',
+				timer: 1500,
+			})
 		}
 	});
 }
@@ -210,6 +218,14 @@ function DeleteAllCart(baseUrl) {
 		success: function(jsonResult) {
 			$("#iconShowTotalItemsInCart").css("display","none");
 			$( "#js-total-cart-payment").html(formatNumber(jsonResult.totalPrice, 0, ',', '.'));
+			Swal.fire({
+				toast: true,
+				position: 'top-end',
+				showConfirmButton: false,
+				title: 'Đã toàn bộ sản phẩm trong giỏ hàng',
+				icon: 'success',
+				timer: 1500,
+			})
 		}
 	});
 }

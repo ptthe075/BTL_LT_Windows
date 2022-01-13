@@ -1,6 +1,7 @@
 package com.devpro.shop16.ppthe.entities;
 
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -53,6 +54,29 @@ public class Category extends BaseEntity {
 	public void deleteProduct(Product product) {
 		this.products.remove(product);
 		product.setCategory(null);
+	}
+	
+	public boolean hasParentCategory(Category c) {
+		Category category = this.getParent();
+		if(category == null) {
+			return false;
+		}else {
+			if(category.getId() == c.getId()) {
+				return true;
+			}else {
+				return category.hasParentCategory(c);
+			}
+		}
+	}
+	
+	public LinkedList<Category> listParentCategories(LinkedList<Category> list) {
+		Category category = this.getParent();
+		if(category == null) {
+			return list;
+		}else {
+			list.addFirst(category);
+			return category.listParentCategories(list);
+		}
 	}
 
 	public String getName() {

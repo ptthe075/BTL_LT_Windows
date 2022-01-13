@@ -7,6 +7,8 @@ public class ProductSearchModel extends BaseSearchModel {
 
 	// tìm theo category
 	public Integer categoryId;
+	
+	public Integer brandId;
 
 	public String seo;
 

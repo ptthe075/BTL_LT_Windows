@@ -729,6 +729,7 @@ a.box-title__title:hover {
 }
 
 .cart-col-delete {
+	cursor: pointer;
     text-align: center;
     display: block;
     width: 105px;
