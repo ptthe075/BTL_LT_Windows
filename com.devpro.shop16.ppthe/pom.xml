@@ -1,14 +1,15 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.devpro</groupId>
-  <artifactId>com.devpro.shop16.ppthe</artifactId>
-  <packaging>war</packaging>
-  <version>0.0.1-SNAPSHOT</version>
-  <name>com.devpro.shop16.ppthe Maven Webapp</name>
-  <url>http://maven.apache.org</url>
-  
-  <properties>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.devpro</groupId>
+	<artifactId>com.devpro.shop16.ppthe</artifactId>
+	<packaging>war</packaging>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>com.devpro.shop16.ppthe Maven Webapp</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
 		<maven.compiler.target>11</maven.compiler.target>
 		<maven.compiler.source>11</maven.compiler.source>
 	</properties>
@@ -18,9 +19,9 @@
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.1.4.RELEASE</version>
 	</parent>
-	
-  <dependencies>
-     <!-- Các module khác muốn tích hợp với spring-boot thì cần sử dụng các 
+
+	<dependencies>
+		<!-- Các module khác muốn tích hợp với spring-boot thì cần sử dụng các 
 			gói stater -->
 		<!-- spring mvc -->
 		<dependency>
@@ -35,6 +36,11 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+		<!-- spring mail -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
 		<!-- view engine -->
 		<dependency>
@@ -75,8 +81,8 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-taglibs</artifactId>
 		</dependency>
-  </dependencies>
-  <build>
-    <finalName>com.devpro.shop16.ppthe</finalName>
-  </build>
+	</dependencies>
+	<build>
+		<finalName>com.devpro.shop16.ppthe</finalName>
+	</build>
 </project>

@@ -48,7 +48,7 @@
 									không thành công. Vui lòng thử lại !!!</div>
 							</c:if>
 							<div class="text">
-								<a href="#">Quên mật khẩu?</a>
+								<a onclick="forgotPassword('${base}');">Quên mật khẩu?</a>
 							</div>
 							<div class="button input-box">
 								<button type="submit">Đăng nhập</button>
@@ -117,44 +117,7 @@
 
 	<script src="${base}/assets/lib/jquery/jquery.min.js"></script>
 	<script src="${base}/assets/lib/sweetalert/sweetalert2.all.min.js"></script>
-	<script type="text/javascript">
-		function signup(baseUrl) {
-			var username = $("#username").val(), pass = $("#password").val(), email = $(
-					"#email").val(), name = $("#name").val(), passConfirm = $(
-					"#password_confirm").val();
-
-			if (username || pass || email || name || passConfirm) {
-				if (pass == passConfirm) {
-					let data = {
-						username : username,
-						password : pass,
-						email : email,
-						name : name,
-					};
-					$.ajax({
-						url : baseUrl + "/ajax/signup",
-						type : "post",
-						contentType : "application/json",
-						data : JSON.stringify(data),
-						dataType : "json",
-						success : function(jsonResult) {
-							Swal.fire('Thành công', "Đăng ký tài khoản thành công", 'success');
-							$("#username").val("");
-							pass = $("#password").val("");
-							email = $("#email").val("");
-							name = $("#name").val("");
-							passConfirm = $("#password_confirm").val("");
-						}
-					});
-				} else {
-					Swal.fire('Thất bại', 'Mật khẩu xác nhận không chính xác', 'error');
-				}
-			} else {
-				Swal.fire('Thất bại', 'Vui lòng nhập đầy đủ thông tin', 'error');
-			}
-
-		}
-	</script>
+	<script src="${base}/assets/js/login.script.js"></script>
 </body>
 
 </html>

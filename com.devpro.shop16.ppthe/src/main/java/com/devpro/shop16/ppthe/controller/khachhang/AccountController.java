@@ -69,8 +69,6 @@ public class AccountController extends BaseController{
 	private String buildOrders(List<SaleOrder> orders) {
 		StringBuilder build = new StringBuilder();
 		
-//		build.append("<div class=\"account-info-container\"> <h3>Đơn hàng của tôi</h3> <div class=\"account__form-container order\" style=\"overflow: hidden;\"> <ul class=\"tabs-orders\"> <li class=\"tab-order__link current\" data-tab=\"#all-menus\">Tất cả đơn</li> <li class=\"tab-order__link\" data-tab=\"#processing\">Đang xử lý</li> <li class=\"tab-order__link\" data-tab=\"#delivering\">Đang giao</li> <li class=\"tab-order__link\" data-tab=\"#delivered\">Đã giao</li> <li class=\"tab-order__link\" data-tab=\"#cancelled\">Đã hủy</li> </ul>");
-		
 		build.append("<div id=\"all-menus\" class=\"tab-content current\">");
 		build.append(buildTabOrder(orders, 0));
 		build.append("</div>");
@@ -91,7 +89,6 @@ public class AccountController extends BaseController{
 		build.append(buildTabOrder(orders, 4));
 		build.append("</div>");
 
-//		build.append("</div> </div>");
 		
 		return build.toString();
 	}
@@ -118,7 +115,7 @@ public class AccountController extends BaseController{
 				}
 				
 				build.append("<td>" + df.format(so.getTotal()) + "</td>");
-				build.append("<td>" + so.getNote() + "</td>");
+				build.append("<td>" + ((so.getNote() == null)?"":so.getNote()) + "</td>");
 
 				
 				build.append("<td><a href=\"/\" class=\"account-order__action\">Chi tiết</a>");
@@ -151,7 +148,7 @@ public class AccountController extends BaseController{
 					}
 					
 					build.append("<td>" + df.format(so.getTotal()) + "</td>");
-					build.append("<td>" + so.getNote() + "</td>");
+					build.append("<td>" + ((so.getNote() == null)?"":so.getNote()) + "</td>");
 					
 					build.append("<td><a href=\"/\" class=\"account-order__action\">Chi tiết</a>");
 					
@@ -231,12 +228,17 @@ public class AccountController extends BaseController{
 		Map<String, Object> jsonResult = new HashMap<String, Object>();
 		jsonResult.put("code", 200);
 		
+		String str = "";
 		switch (statusId) {
 		case 3:
 			jsonResult.put("message", "Xác nhận đã giao hàng thành công");
+			str = "Đã giao thành công đơn hàng có mã: "+so.getCode() + "\n Cảm ơn bạn đã mua hàng!";
+			sentEmail(so.getCustomerEmail(), "Giao hàng thành công", str);
 			break;
 		case 4:
 			jsonResult.put("message", "Bạn đã hủy thành công đơn hàng này");
+			str = "Bạn đã hủy thành công đơn hàng có mã: "+so.getCode() + " với lý do: " + so.getNote() + "\n Xin cảm ơn!";
+			sentEmail(so.getCustomerEmail(), "Hủy đơn hàng thành công", str);
 			break;
 		}
 		
@@ -244,6 +246,7 @@ public class AccountController extends BaseController{
 		String sql = "SELECT * FROM tbl_saleorder WHERE user_id = "+id;
 		List<SaleOrder> orders = saleOrderService.executeByNativeSQL(sql, 0).getData();
 		jsonResult.put("buildOrders", buildOrders(orders));
+		
 
 		return ResponseEntity.ok(jsonResult);
 	}

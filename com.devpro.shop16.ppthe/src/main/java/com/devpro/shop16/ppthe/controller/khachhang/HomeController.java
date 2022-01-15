@@ -1,9 +1,7 @@
 package com.devpro.shop16.ppthe.controller.khachhang;
 
-import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -55,6 +53,7 @@ public class HomeController extends BaseController {
 		List<Category> categories = categoryParents();
 		String hotProducts = buildHotProducts(products, categories);
 		model.addAttribute("hotProducts", hotProducts);
+		
 		
 		return "khachhang/home/index";
 	}
