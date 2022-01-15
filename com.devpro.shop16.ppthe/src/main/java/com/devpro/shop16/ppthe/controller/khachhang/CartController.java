@@ -62,6 +62,7 @@ public class CartController extends BaseController {
 		
 		String customerPhone = request.getParameter("user_info[phone]");
 		String customerAddress = request.getParameter("user_info[address]");
+		String customerEmail = request.getParameter("user_info[email]");
 
 		SaleOrder saleOrder = new SaleOrder();
 		saleOrder.setSaleOrderStatus(saleOrderStatus);
@@ -70,7 +71,8 @@ public class CartController extends BaseController {
 			User user = userService.getById(getUserLogined().getId());
 			saleOrder.setUserId(user.getId());
 			saleOrder.setCustomerName(user.getName());
-			saleOrder.setCustomerEmail(user.getEmail());
+			customerEmail = user.getEmail();
+			saleOrder.setCustomerEmail(customerEmail);
 			if(user.getPhone() == null) {
 				saleOrder.setCustomerPhone(customerPhone);
 			}else {
@@ -79,7 +81,6 @@ public class CartController extends BaseController {
 			saleOrder.setCustomerAddress(customerAddress);
 		} else {
 			String customerFullName = request.getParameter("user_info[name]");
-			String customerEmail = request.getParameter("user_info[email]");
 			saleOrder.setCustomerName(customerFullName);
 			saleOrder.setCustomerEmail(customerEmail);
 			saleOrder.setCustomerAddress(customerAddress);
@@ -110,6 +111,8 @@ public class CartController extends BaseController {
 		// xóa dữ liệu giỏ hàng trong session
 		session.setAttribute("cart", null);
 		session.setAttribute("totalItems", "0");
+		
+		sentEmail(customerEmail, "Đặt hàng thành công", "Bạn đã đặt thành công đơn hàng này. \n Chúng tôi sẽ kiểm tra và tiến hành giao trong thời gian sớm nhất cho bạn.");
 
 		return "redirect:/";
 	}

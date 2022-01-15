@@ -53,12 +53,17 @@ public class AdminOrderController extends BaseController {
 		Map<String, Object> jsonResult = new HashMap<String, Object>();
 		jsonResult.put("code", 200);
 		
+		String str = "";
 		switch (statusId) {
 		case 2:
 			jsonResult.put("message", "Đơn hàng này đang được giao cho khách");
+			str = "Đơn hàng có mã: "+so.getCode() + " đang được chúng tôi giao. \n Vui lòng xác nhận khi bạn nhận được hàng. \n Xin cảm ơn!";
+			sentEmail(so.getCustomerEmail(), "Đơn hàng đang giao", str);
 			break;
 		case 4:
 			jsonResult.put("message", "Bạn đã hủy thành công đơn hàng này");
+			str = "Đơn hàng có mã: "+so.getCode() + " của bạn đã bị chúng tôi hủy với lý do: " + so.getNote() + "\n Xin cảm ơn!";
+			sentEmail(so.getCustomerEmail(), "Đơn hàng bị hủy", str);
 			break;
 		}
 		

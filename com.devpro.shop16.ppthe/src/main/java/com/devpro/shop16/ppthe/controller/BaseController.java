@@ -10,10 +10,11 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.devpro.shop16.ppthe.entities.Brand;
 import com.devpro.shop16.ppthe.entities.Category;
@@ -27,7 +28,6 @@ import com.devpro.shop16.ppthe.services.CategoryService;
 import com.devpro.shop16.ppthe.services.InformationService;
 import com.devpro.shop16.ppthe.services.ProductService;
 import com.devpro.shop16.ppthe.services.SliderService;
-import com.devpro.shop16.ppthe.services.UserService;
 
 public abstract class BaseController {
 	@Autowired
@@ -44,6 +44,19 @@ public abstract class BaseController {
 	
 	@Autowired
 	protected InformationService informationService;
+	
+	@Autowired
+    protected JavaMailSender emailSender;
+	
+	public void sentEmail(String to, String subject, String text) {
+		SimpleMailMessage message = new SimpleMailMessage();
+        
+        message.setTo(to);
+        message.setSubject(subject);
+        message.setText(text);
+
+        this.emailSender.send(message);
+	}
 	
 
 	@ModelAttribute("categories")

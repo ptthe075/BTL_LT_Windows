@@ -177,6 +177,7 @@ body {
 .forms .form-content .text a {
     color: #333;
     text-decoration: none;
+    cursor: pointer;
 }
 
 .forms .form-content .text a:hover {

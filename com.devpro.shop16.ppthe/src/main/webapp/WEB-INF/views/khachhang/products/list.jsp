@@ -208,7 +208,7 @@
                     </div>
                 </div>
 
-                <div class="col c-12 block-container block-paging">
+                <!-- <div class="col c-12 block-container block-paging">
                     <a href="" class="block-paging-item border-1 paging-active">
                         <i class="fas fa-chevron-left"></i>
                         <i class="fas fa-chevron-left"></i>
@@ -226,7 +226,7 @@
                         <i class="fas fa-chevron-right"></i>
                         <i class="fas fa-chevron-right"></i>
                     </a>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>

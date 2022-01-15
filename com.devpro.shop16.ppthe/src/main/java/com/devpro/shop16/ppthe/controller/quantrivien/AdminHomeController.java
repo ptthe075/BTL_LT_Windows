@@ -44,7 +44,9 @@ public class AdminHomeController extends BaseController {
 		BigDecimal total = BigDecimal.ZERO;
 
 		for (SaleOrder so : saleOrders) {
-			total = total.add(so.getTotal());
+			if(so.getSaleOrderStatus().getId() == 3) {
+				total = total.add(so.getTotal());
+			}
 		}
 		
 		modal.addAttribute("totalOrder", total);
