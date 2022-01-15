@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.devpro.shop16.ppthe.controller.BaseController;
 import com.devpro.shop16.ppthe.entities.Category;
 import com.devpro.shop16.ppthe.entities.Contact;
+import com.devpro.shop16.ppthe.entities.Information;
 import com.devpro.shop16.ppthe.entities.Product;
 import com.devpro.shop16.ppthe.entities.Slider;
 import com.devpro.shop16.ppthe.entities.Subscribe;
@@ -55,6 +57,17 @@ public class HomeController extends BaseController {
 		model.addAttribute("hotProducts", hotProducts);
 		
 		return "khachhang/home/index";
+	}
+	
+	@RequestMapping(value = { "/about/{informationSeo}" }, method = RequestMethod.GET)
+	public String about(final Model model, final HttpServletRequest request, final HttpServletResponse response, @PathVariable("informationSeo") String informationSeo)
+			throws Exception {
+		
+		String sql = "SELECT * FROM tbl_information WHERE seo = '" + informationSeo + "' AND status = 1";
+		Information information  =  informationService.executeByNativeSQL(sql, 0).getData().get(0);
+		model.addAttribute("information",information);
+		
+		return "khachhang/home/about";
 	}
 
 	@RequestMapping(value = { "/ajax/subcrible" }, method = RequestMethod.POST)
@@ -110,7 +123,7 @@ public class HomeController extends BaseController {
 				}
 			}
 			if(cate.length() != 0) {
-				hotProducts.append("<div class=\"col c-12 block-container\"> <div class=\"border-radius box-shadow\"> <div class=\"col c-4 box-title\"> <a href=\"#\" class=\"box-title__title\"> <h2>"+c.getName()+" nổi bật</h2> </a> </div> <div class=\"col c-12 box-list__wrapper\"> <div class=\"btn-action__prev\" name-category=\""+c.getSeo()+"\"> <i class=\"fas fa-chevron-left\"></i> </div> <div class=\"btn-action__next\" name-category=\""+c.getSeo()+"\"> <i class=\"fas fa-chevron-right\"></i> </div> <div class=\"row\"> <div class=\"col c-12 list-product\" name-category=\""+c.getSeo()+"\">");
+				hotProducts.append("<div class=\"col c-12 block-container\"> <div class=\"border-radius box-shadow\"> <div class=\"col c-4 box-title\"> <a href=\"/category/" + c.getSeo() + "\" class=\"box-title__title\"> <h2>"+c.getName()+" nổi bật</h2> </a> </div> <div class=\"col c-12 box-list__wrapper\"> <div class=\"btn-action__prev\" name-category=\""+c.getSeo()+"\"> <i class=\"fas fa-chevron-left\"></i> </div> <div class=\"btn-action__next\" name-category=\""+c.getSeo()+"\"> <i class=\"fas fa-chevron-right\"></i> </div> <div class=\"row\"> <div class=\"col c-12 list-product\" name-category=\""+c.getSeo()+"\">");
 				hotProducts.append(cate);
 				hotProducts.append("</div></div></div></div></div>");
 			}

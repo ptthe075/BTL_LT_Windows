@@ -39,10 +39,13 @@ public class SaleOrder extends BaseEntity {
 
 	@Column(name = "seo", length = 200, nullable = true)
 	private String seo;
-	
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "status_id")
 	private SaleOrderStatus saleOrderStatus;
+
+	@Column(name = "note", length = 1000, nullable = true)
+	private String note;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "saleOrder", fetch = FetchType.LAZY)
 	private Set<SaleOrderProduct> saleOrderProducts = new HashSet<SaleOrderProduct>();
@@ -56,7 +59,7 @@ public class SaleOrder extends BaseEntity {
 		this.saleOrderProducts.remove(saleOrderProduct);
 		saleOrderProduct.setSaleOrder(null);
 	}
-	
+
 	public String getCode() {
 		return code;
 	}
@@ -135,6 +138,14 @@ public class SaleOrder extends BaseEntity {
 
 	public void setSaleOrderProducts(Set<SaleOrderProduct> saleOrderProducts) {
 		this.saleOrderProducts = saleOrderProducts;
+	}
+
+	public String getNote() {
+		return note;
+	}
+
+	public void setNote(String note) {
+		this.note = note;
 	}
 
 }

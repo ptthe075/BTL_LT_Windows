@@ -79,42 +79,9 @@
 									</a>
 							</li>
 							<li class="header__container-item border-radius header__container-hiden">
-								<!--<c:choose>
-									<c:when test="${isLogined}">
-										<a href="#" class="header__container-link">
-											<i class="fas fa-user-circle header__item-icon"></i>
-											<span class="header__item-name"><div>Xin chào,</div>${userLogined.name}</span>
-										</a>
-										<p class="box-shadow"></p>
-										<div class="header__hover-wrapper border-radius box-shadow account">
-											<ul class="header__hover-list">
-												<li class="header__hover-item">
-													<a href="" class="header__hover-link"> <i class="fas fa-user header__hover-icon"></i>Tài khoản</a>
-												</li>
-												<li class="header__hover-item">
-													<a href="" class="header__hover-link"> <i class="fas fa-list-alt header__hover-icon"></i>Đơn hàng</a>
-												</li>
-												<c:if test="${isAdmin}">
-													<li class="header__hover-item">
-														<a href="${base}/admin" class="header__hover-link"> <i class="fas fa-user-shield header__hover-icon"></i>Trang admin</a>
-													</li>
-												</c:if>
-												<li class="header__hover-item">
-													<a href="${base}/logout" class="header__hover-link"> <i class="fas fa-sign-out-alt header__hover-icon"></i>Đăng xuất</a>
-												</li>
-											</ul>
-										</div>
-									</c:when>
-									<c:otherwise>
-										<a href="/login" class="header__container-link">
-											<i class="fas fa-user-circle header__item-icon"></i>
-											<span class="header__item-name">Đăng nhập</span>
-										</a>
-									</c:otherwise>
-								</c:choose>-->
 								<c:choose>
 									<c:when test="${isLogined && not empty userLogined}">
-										<a href="#" class="header__container-link">
+										<a href="${base}/account/edit-account" class="header__container-link">
 											<i class="fas fa-user-circle header__item-icon"></i>
 											<span class="header__item-name"><div>Xin chào,</div>${userLogined.name}</span>
 										</a>

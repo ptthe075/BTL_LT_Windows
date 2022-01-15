@@ -171,3 +171,43 @@ function updatePassword(baseUrl) {
 		}
 	});
 }
+
+function updateOrderStatus(id, status) {
+	(async () => {
+		var note;
+		if (status == 4) {
+			const { value: text } = await Swal.fire({
+				input: 'textarea',
+				inputLabel: "Nhập lý do hủy đơn",
+				inputPlaceholder: 'Nhập nội dung ...',
+				inputAttributes: {
+					'aria-label': 'Nhập nội dung'
+				},
+				showCancelButton: true
+			})
+			note = text;
+		}
+
+		let data = { id: id, userId: status, note: note };
+		$.ajax({
+			url: "/admin/orders/ajax/updateOrderStatus",
+			type: "post",
+			contentType: "application/json",
+			data: JSON.stringify(data),
+			dataType: "json",
+			success: function(jsonResult) {
+				if (jsonResult.message) {
+					Swal.fire('Thành công', jsonResult.message, 'success');
+					$("#status-"+id).text(jsonResult.status);
+					if(status == 4){
+						$("#status-"+id).css("color","red");
+						$("#note-"+id).text(note);
+					}
+					$("#action-"+id).html('<a href="/admin/orders/detail/' + id + '" style="width: 100%;" class="btn bg-gradient-primary btn-sm"> <i class="fas fa-eye"></i> </a>');
+				} else {
+					Swal.fire('Thất bại', "Lỗi", 'error');
+				}
+			}
+		});
+	})()
+}
