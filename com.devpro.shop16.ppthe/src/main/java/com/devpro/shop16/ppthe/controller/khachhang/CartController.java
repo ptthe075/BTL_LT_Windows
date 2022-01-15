@@ -24,23 +24,32 @@ import com.devpro.shop16.ppthe.dto.CartItem;
 import com.devpro.shop16.ppthe.entities.Product;
 import com.devpro.shop16.ppthe.entities.SaleOrder;
 import com.devpro.shop16.ppthe.entities.SaleOrderProduct;
+import com.devpro.shop16.ppthe.entities.SaleOrderStatus;
 import com.devpro.shop16.ppthe.entities.User;
 import com.devpro.shop16.ppthe.services.ProductService;
 import com.devpro.shop16.ppthe.services.SaleOrderService;
+import com.devpro.shop16.ppthe.services.SaleOrderStatusService;
+import com.devpro.shop16.ppthe.services.UserService;
 
 @Controller
 public class CartController extends BaseController {
 
 	@Autowired
 	private ProductService productService;
+	
+	@Autowired
+	private UserService userService;
 
 	@Autowired
 	private SaleOrderService saleOrderService;
+	
+	@Autowired
+	private SaleOrderStatusService saleOrderStatusService;
 
 	@RequestMapping(value = { "/cart" }, method = RequestMethod.GET)
 	public String home(final Model model, final HttpServletRequest request, final HttpServletResponse response)
 			throws Exception {
-
+		
 		model.addAttribute("products", productService.findAll());
 
 		return "khachhang/cart/index";
@@ -49,22 +58,25 @@ public class CartController extends BaseController {
 	@RequestMapping(value = { "/cart/checkout" }, method = RequestMethod.POST)
 	public String cartFinish(final ModelMap model, final HttpServletRequest request, final HttpServletResponse response)
 			throws Exception {
-
-		// Thông tin khách hàng
+		SaleOrderStatus saleOrderStatus = saleOrderStatusService.getById(1);
+		
 		String customerPhone = request.getParameter("user_info[phone]");
 		String customerAddress = request.getParameter("user_info[address]");
 
-		// tạo hóa đơn
 		SaleOrder saleOrder = new SaleOrder();
+		saleOrder.setSaleOrderStatus(saleOrderStatus);
 
-		// kiểm tra xem khách hàng có phải đã login hay chưa?
 		if(super.isLogined()) {
-			User userLogined = super.getUserLogined();
-			saleOrder.setUserId(userLogined.getId());
-			saleOrder.setCustomerName(userLogined.getName());
-			saleOrder.setCustomerEmail(userLogined.getEmail());
+			User user = userService.getById(getUserLogined().getId());
+			saleOrder.setUserId(user.getId());
+			saleOrder.setCustomerName(user.getName());
+			saleOrder.setCustomerEmail(user.getEmail());
+			if(user.getPhone() == null) {
+				saleOrder.setCustomerPhone(customerPhone);
+			}else {
+				saleOrder.setCustomerPhone(user.getPhone());
+			}
 			saleOrder.setCustomerAddress(customerAddress);
-			saleOrder.setCustomerPhone(customerPhone);
 		} else {
 			String customerFullName = request.getParameter("user_info[name]");
 			String customerEmail = request.getParameter("user_info[email]");
@@ -91,6 +103,7 @@ public class CartController extends BaseController {
 		}
 
 		saleOrder.setTotal(cart.getTotalPrice());
+		saleOrder.setSeo(saleOrder.getCode());
 		// lưu vào cơ sở dữ liệu
 		saleOrderService.saveOrUpdate(saleOrder);
 

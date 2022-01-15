@@ -70,11 +70,11 @@ public class Category extends BaseEntity {
 	}
 	
 	public LinkedList<Category> listParentCategories(LinkedList<Category> list) {
+		list.addFirst(this);
 		Category category = this.getParent();
 		if(category == null) {
 			return list;
 		}else {
-			list.addFirst(category);
 			return category.listParentCategories(list);
 		}
 	}

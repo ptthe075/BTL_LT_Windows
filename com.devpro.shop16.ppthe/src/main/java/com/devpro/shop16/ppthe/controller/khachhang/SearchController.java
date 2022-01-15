@@ -1,5 +1,6 @@
 package com.devpro.shop16.ppthe.controller.khachhang;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -48,7 +49,7 @@ public class SearchController extends BaseController {
 		
 		model.addAttribute("title", "Danh mục "+category.getName().toLowerCase());
 		
-		model.addAttribute("breadcrumb", buildBreadcrumb("<li class=\"breadcrumb-item\">"+category.getName()+"</li>"));
+		model.addAttribute("breadcrumb", buildBreadcrumb(category, null));
 		
 		searchModel.categoryId = category.getId();
 		List<Product> products= productService.search(searchModel).getData();
@@ -71,7 +72,7 @@ public class SearchController extends BaseController {
 		model.addAttribute("title", "Tìm kiếm");
 		
 		
-		model.addAttribute("breadcrumb", buildBreadcrumb("<li class=\"breadcrumb-item\">"+category.getName()+"</li>"));
+		model.addAttribute("breadcrumb", buildBreadcrumb(category, brand));
 		
 		searchModel.categoryId = category.getId();
 		searchModel.brandId = brand.getId();
@@ -91,5 +92,28 @@ public class SearchController extends BaseController {
 		return breadcrumb.toString();
 	}
 	
-	
+	private String buildBreadcrumb(Category category, Brand b) {
+		StringBuilder breadcrumb = new StringBuilder("<div class=\"block-breadcrumbs box-shadow\"> <div class=\"grid breadcrumbs\"> <ul class=\"breadcrumb-list\"> <li class=\"breadcrumb-item\"> <a href=\"/\" class=\"breadcrumb-link\"> <i class=\"fas fa-home breadcrumb-home\"></i> Trang chủ </a> <i class=\"fas fa-angle-right\"></i> </li>");
+		
+		List<Category> categories = category.listParentCategories(new LinkedList<Category>());
+		
+		if(b != null) {
+			for (Category c : categories) {
+				breadcrumb.append("<li class=\"breadcrumb-item\"> <a href=\"/category/" + c.getSeo() + "\" class=\"breadcrumb-link\"> " + c.getName() + " </a> <i class=\"fas fa-angle-right\"></i> </li>");
+			}
+			
+			breadcrumb.append("<li class=\"breadcrumb-item\">"+b.getName()+"</li>");
+		} else {
+			for (int i = 0; i < categories.size() - 1; i++) {
+				Category c = categories.get(i);
+				breadcrumb.append("<li class=\"breadcrumb-item\"> <a href=\"/category/" + c.getSeo() + "\" class=\"breadcrumb-link\"> " + c.getName() + " </a> <i class=\"fas fa-angle-right\"></i> </li>");
+			}
+			
+			breadcrumb.append("<li class=\"breadcrumb-item\">"+categories.get(categories.size() - 1).getName()+"</li>");
+		}
+		
+		
+		breadcrumb.append("</ul></div></div>");
+		return breadcrumb.toString();
+	}
 }

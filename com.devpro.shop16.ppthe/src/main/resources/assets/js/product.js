@@ -1,4 +1,5 @@
 $(function() {
+	$(".box-quantity__input").val(1);
 
     slickSlider($('.list-brand'), $('.btn-action__prev[name-category="brand"]'), $('.btn-action__next[name-category="brand"]'), 8);
 
@@ -14,25 +15,42 @@ $(function() {
     $(".box-quantity__change").click(function(e) {
         e.preventDefault();
         var dataValue = parseInt($(this).attr("data-value"));
-        var quantity = parseInt($(".box-quantity__input").attr("value"));
+        var quantity = parseInt($(".box-quantity__input").val());
         var minus = $('.box-quantity__change[data-value="-1"]');
         var plus = $('.box-quantity__change[data-value="1"]');
         if (quantity) {
             quantity += dataValue;
-            if (quantity >= 1 && quantity <= 10) {
-                $(".box-quantity__input").attr("value", quantity);
-
+            if (quantity > 1 && quantity < 10) {
+                //$(".box-quantity__input").attr("value", quantity);
+				
                 minus.removeClass("disable");
                 plus.removeClass("disable");
             }
-            if (quantity === 1) {
-                $(".box-quantity__input").attr("value", 1);
+            if (quantity <= 1) {
+                //$(".box-quantity__input").attr("value", 1);
+				quantity = 1;
                 minus.addClass("disable");
             }
-            if (quantity === 10) {
+            if (quantity >= 10) {
+				quantity = 10;
                 plus.addClass("disable");
             }
+
+			$(".box-quantity__input").val(quantity);
         }
+    });
+
+	$(".box-quantity__input").change(function (e) {
+		var quantity = $(this).val();
+		if(quantity < 1) {
+			quantity = 1;
+			$(this).val(quantity);
+		}
+		if(quantity > 10) {
+			quantity = 10;
+			$(this).val(quantity);
+		}
+		$(this).attr("value", quantity);
     });
 
     //#region Shopping cart
@@ -194,6 +212,7 @@ function DeleteItemCart(baseUrl, productId) {
 		success: function(jsonResult) {
 			if(jsonResult.totalItems == 0){
 				$("#iconShowTotalItemsInCart").css("display","none");
+				$("#list-cart-item").html('<div class="no-order" style="height: 284px;"><img src="/assets/imgs/empty-order.png"> <p>Chưa có sản phẩm nào trong giỏ hàng của bạn</p> </div>');
 			}
 			$("#iconShowTotalItemsInCart").html(jsonResult.totalItems);
 			$( "#js-total-cart-payment").html(formatNumber(jsonResult.totalPrice, 0, ',', '.'));
@@ -217,6 +236,7 @@ function DeleteAllCart(baseUrl) {
 		dataType: "json",
 		success: function(jsonResult) {
 			$("#iconShowTotalItemsInCart").css("display","none");
+			$("#list-cart-item").html('<div class="no-order" style="height: 284px;"><img src="/assets/imgs/empty-order.png"> <p>Chưa có sản phẩm nào trong giỏ hàng của bạn</p> </div>');
 			$( "#js-total-cart-payment").html(formatNumber(jsonResult.totalPrice, 0, ',', '.'));
 			Swal.fire({
 				toast: true,

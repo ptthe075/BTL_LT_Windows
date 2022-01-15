@@ -25,22 +25,7 @@
 	<jsp:include page="/WEB-INF/views/common/variables.jsp"></jsp:include>
 	<jsp:include page="/WEB-INF/views/khachhang/layout/header.jsp"></jsp:include>
 
-	<div class="block-breadcrumbs box-shadow">
-		<div class="grid breadcrumbs">
-			<ul class="breadcrumb-list">
-				<li class="breadcrumb-item"><a href="#" class="breadcrumb-link">
-						<i class="fas fa-home breadcrumb-home"></i> Trang chủ
-				</a> <i class="fas fa-angle-right"></i></li>
-				<li class="breadcrumb-item"><a href="#" class="breadcrumb-link">
-						Điện thoại </a> <i class="fas fa-angle-right"></i></li>
-				<li class="breadcrumb-item"><a href="#" class="breadcrumb-link">
-						Apple </a> <i class="fas fa-angle-right"></i></li>
-				<li class="breadcrumb-item"><a href="#" class="breadcrumb-link">
-						iPhone 13 Series </a> <i class="fas fa-angle-right"></i></li>
-				<li class="breadcrumb-item">iPhone 13 Pro | Chính hãng VN/A</li>
-			</ul>
-		</div>
-	</div>
+	${breadcrumb}
 
 	<div class="container-wrapper padding-top-0">
 		<div class="block-product-detail box-shadow">
@@ -125,7 +110,7 @@
 									<div class="box-quantity__buy border-1">
 										<a href="" class="box-quantity__change disable"
 											data-value="-1"><i class="fas fa-minus"></i></a> <input
-											type="number" class="box-quantity__input" value="1">
+											type="number" class="box-quantity__input">
 										<a href="" class="box-quantity__change" data-value="1"><i
 											class="fas fa-plus"></i></a>
 									</div>
@@ -133,14 +118,14 @@
 								<div class="box-action-button">
 									<div class="row">
 										<div class="col c-12 margin-bottom-10">
-											<a href="#" class="action-button__buy border-radius">
+											<a href="${base}/cart" onclick="javascript:AddToCart('${base}', ${product.id}, $('.box-quantity__input').val());" class="action-button__buy border-radius">
 												<div class="action-button__name">Đặt mua ngay</div>
 												<div class="action-button__desc">Giao hàng tận nơi
 													nhanh chóng, thuận tiện</div>
 											</a>
 										</div>
 										<div class="col c-6 margin-bottom-10 padding-right-6">
-											<a class="action-button__item border-radius">
+											<a onclick="javascript:AddToCart('${base}', ${product.id}, $('.box-quantity__input').val());" class="action-button__item border-radius">
 												<div class="action-button__name">Thêm giỏ hàng</div>
 												<div class="action-button__desc">Thêm vào giỏ để chọn
 													tiếp</div>
@@ -209,37 +194,47 @@
 							</div>
 							<div class="row">
 								<div class="col c-12 list-product" name-category="similar">
-									<!-- <div class="item-product border-radius border-1 margin-12-6">
-										<div class="item-product__percent">
-											<p>giảm 22%</p>
-										</div>
-										<div class="item-product__img">
-											<a href="#"> <img
-												src="${base}/assets/imgs/products/product1.jpg" width="100%"
-												alt="">
-											</a>
-										</div>
-										<div class="item-product__name">
-											<a href="#">iPhone 13 Pro Max iPhone 13 Pro Max iPhone 13
-												Pro Max iPhone 13 Pro Max</a>
-										</div>
-										<div class="item-product__price">
-											<div class="special-price">35.990.000 ₫</div>
-											<div class="old-price">36.990.000 ₫</div>
-										</div>
-										<div class="item-product__action">
-											<div class="item-product__rating">
-												<i class="fas fa-star start-checked"></i> <i
-													class="fas fa-star start-checked"></i> <i
-													class="fas fa-star start-checked"></i> <i
-													class="fas fa-star start-checked"></i> <i
-													class="fas fa-star start-checked"></i>
+									<c:forEach var="product" items="${similarProducts}">
+										<div class="item-product border-radius border-1 margin-12-6">
+											<c:if test="${not empty product.priceSale}">
+												<div class="item-product__percent">
+													<c:set var="discount" value="${(100 - (product.priceSale / product.price) * 100)}"/>
+													<p>giảm  <fmt:formatNumber value="${discount}" maxFractionDigits="0" type="number"/>%</p>
+												</div>
+											</c:if>
+											<div class="item-product__img">
+												<a href="${base}/product/detail/${product.seo}"> <img
+												src="${base}/Upload/Products/${product.avatar}" width="100%" alt="">
+												</a>
 											</div>
-											<a href="" class="item-product__cart"> <i
-												class="fas fa-cart-plus"></i>
-											</a>
+											<div class="item-product__name">
+												<a href="${base}/product/detail/${product.seo}">${product.name}</a>
+											</div>
+											<div class="item-product__price">
+												<c:choose>
+													<c:when test="${empty product.priceSale}">
+														<div class="special-price">
+															<fmt:formatNumber value="${product.price}" pattern="###,### ₫" type="number"/>
+														</div>
+													</c:when>
+													<c:otherwise>
+														<div class="special-price">
+															<fmt:formatNumber value="${product.priceSale}" pattern="###,### ₫" type="number"/>
+														</div>
+														<div class="old-price">
+															<fmt:formatNumber value="${product.price}" pattern="###,### ₫" type="number"/>
+														</div>
+													</c:otherwise>
+												</c:choose>
+					 						</div>
+											<div class="item-product__action">
+												<div class="item-product__rating"> </div>
+												<a onclick="javascript:AddToCart('${base}', ${product.id}, 1);" class="item-product__cart"> <i
+													class="fas fa-cart-plus"></i>
+												</a>
+											</div>
 										</div>
-									</div> -->
+									</c:forEach>
 								</div>
 							</div>
 						</div>
@@ -266,6 +261,7 @@
 	<script src="${base}/assets/lib/jquery/jquery.min.js"></script>
 	<script src="${base}/assets/lib/slick/js/slick.min.js"></script>
 	<script src="${base}/assets/lib/slick/js/slick.script.js"></script>
+	<script src="${base}/assets/lib/sweetalert/sweetalert2.all.min.js"></script>
 	<script src="${base}/assets/js/product.js"></script>
 	<script src="${base}/assets/js/script.js"></script>
 </body>

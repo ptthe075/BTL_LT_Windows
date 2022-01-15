@@ -165,7 +165,7 @@ public abstract class BaseController {
 
 	private void buildSubMenu(StringBuilder menu, Set<Category> childs) {
 		for (Category c : childs) {
-			menu.append("<li class=\"menu-item\"><a href=\"#\" class=\"menu-item__link\"> <div class=\"menu-item__name\">");
+			menu.append("<li class=\"menu-item\"><a href=\"/category/"+c.getSeo()+"\" class=\"menu-item__link\"> <div class=\"menu-item__name\">");
 
 			if (c.getImage() != null && !c.getImage().isEmpty()) {
 				menu.append("<i class=\"menu-item__img\" style=\"background: url('/Upload/Categories/" + c.getImage()+ "') no-repeat center / contain;\"></i>");

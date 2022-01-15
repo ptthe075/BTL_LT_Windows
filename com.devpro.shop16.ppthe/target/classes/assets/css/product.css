@@ -650,7 +650,7 @@ a.box-title__title:hover {
 .cart-col-product {
     display: flex;
     align-items: center;
-    width: calc(100% - 665px);
+    width: calc(100% - 540px);
     padding-right: 10px;
 }
 
@@ -669,10 +669,11 @@ a.box-title__title:hover {
     width: 80px;
 }
 
-.cart-col-color {
-    text-align: center;
-    font-weight: bold;
-    width: 125px;
+.cart-col-product__info{
+	font-size: 14px;
+	max-width: 200px;
+	font-weight: bold;
+	margin-left: 10px;
 }
 
 .shopping-cart__item .cart-col-color {
@@ -682,6 +683,7 @@ a.box-title__title:hover {
 .cart-col-price {
     text-align: center;
     width: 185px;
+    font-weight: bold;
 }
 
 .shopping-cart__title .cart-col-quantity {
@@ -726,6 +728,7 @@ a.box-title__title:hover {
 
 .shopping-cart__item .cart-col-total-price {
     color: var(--background-color);
+    font-weight: bold;
 }
 
 .cart-col-delete {
@@ -733,9 +736,72 @@ a.box-title__title:hover {
     text-align: center;
     display: block;
     width: 105px;
+    font-weight: bold;
 }
 
 .shopping-cart__item .cart-col-delete:hover {
     color: var(--background-color);
+}
+
+.cart-customer-block {
+	margin-bottom: 10px;
+}
+        
+.form-customer-info {
+	width: 100%;
+	margin: 5px 0;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 5px; 
+}
+        
+.form-customer-info:focus-visible {
+	outline: none;
+}
+        
+.cart__payment-methods {
+	margin-bottom: 10px;
+}
+        
+.label-container {
+	width: 100%;
+	line-height: 20px;
+	margin: 5px 0;
+}
+        
+.cart__button-buy {
+            margin: 10px 0;
+}
+
+.cart-customer__title {
+	color: var(--background-color);
+	font-weight: bold;
+	margin: 10px 0;
+}
+
+.cart__payment-total {
+	font-weight: bold;
+}
+
+.cart__payment-total > b{
+	color: var(--background-color);
+}
+
+.cart__button-buy {
+	border: 2px solid var(--background-color);
+	width: 100%;
+	border-radius: 5px;
+	padding: 0;
+	line-height: 40px;
+	text-align: center;
+	font-weight: bold;
+	color: var(--background-color);
+	background: var(--white-color);
+	cursor: pointer;
+}
+
+.cart__button-buy:hover {
+	background: var(--background-color);
+	color: var(--white-color);
 }
 /* #endregion Shopping cart*/

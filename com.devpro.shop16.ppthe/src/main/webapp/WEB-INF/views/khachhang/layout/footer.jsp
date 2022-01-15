@@ -28,7 +28,7 @@
 						<ul class="footer__menu-list">
 							<c:forEach var="info" items="${infomations }">
 								<li class="footer__menu-item">
-									<a href="#" class="footer__menu-link">${info.name }</a>
+									<a href="/about/${info.seo }" class="footer__menu-link">${info.name }</a>
 								</li>
 							</c:forEach>
 							<li class="footer__menu-item">

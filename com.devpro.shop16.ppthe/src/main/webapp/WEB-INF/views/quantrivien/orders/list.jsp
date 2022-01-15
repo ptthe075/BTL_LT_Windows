@@ -87,11 +87,10 @@
 														<th style="width: 110px;">Mã đơn hàng</th>
 														<th style="width: 150px;">Ngày tạo</th>
 														<th style="width: 150px;">Tên khách hàng</th>
-														<th style="width: 90px;">Điện thoại</th>
-														<th>Tình trạng đơn hàng</th>
-														<th style="width: 100px;">Tổng tiền</th>
-														<th class="text-align-center" style="width: 90px;">Hành
-															động</th>
+														<th style="width: 175px;">Tình trạng đơn hàng</th>
+														<th style="width: 110px;">Tổng tiền</th>
+														<th>Ghi chú</th>
+														<th class="text-align-center" style="width: 90px;">Hành động</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -101,13 +100,24 @@
 															<td>${order.code }</td>
 															<td><fmt:formatDate pattern = "dd/MM/yyyy HH:mm:ss" value = "${order.createdDate }" /></td>
 															<td>${order.customerName }</td>
-															<td>${order.customerPhone }</td>
-															<td>Đang giao</td>
+															<c:choose>
+																<c:when test="${order.saleOrderStatus.id == 4}">
+																	<td style="color: red">${order.saleOrderStatus.name }</td>
+																</c:when>
+																<c:otherwise>
+																	<td id="status-${order.id}" style="color: green">${order.saleOrderStatus.name }</td>
+																</c:otherwise>
+															</c:choose>
 															<td style="text-align: right;"><fmt:formatNumber value="${order.total }" pattern="###,### ₫" type="number"/></td>
-															<td class="text-align-center">
-																<a href="${base }/admin/orders/detail/${order.id}" class="btn bg-gradient-primary btn-sm">
+															<td id="note-${order.id}">${order.note }</td>
+															<td id="action-${order.id}" class="text-align-center">
+																<a href="${base }/admin/orders/detail/${order.id}" style="width: 100%;" class="btn bg-gradient-primary btn-sm">
 																	<i class="fas fa-eye"></i>
 																</a>
+																<c:if test="${order.saleOrderStatus.id == 1}">
+																	<a class="btn bg-gradient-success btn-sm" onclick="updateOrderStatus(${order.id}, 2);" style="margin-top: 10px; width: 100%;"> Giao hàng </a>
+																	<a class="btn bg-gradient-danger btn-sm" onclick="updateOrderStatus(${order.id}, 4);" style="margin-top: 10px; width: 100%;"> Hủy đơn </a>
+																</c:if>
 															</td>
 														</tr>
 													</c:forEach>
@@ -143,6 +153,8 @@
 	<!-- Bootstrap 4 -->
 	<script
 		src="${base}/areas/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<!-- Sweetalert 2 -->
+	<script src="${base}/assets/lib/sweetalert/sweetalert2.all.min.js"></script>
 	<!-- DataTables  & Plugins -->
 	<script src="${base}/areas/admin/plugins/datatables/jquery.dataTables.min.js"></script>
 	<script

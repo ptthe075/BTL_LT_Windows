@@ -19,35 +19,6 @@
 <link rel="stylesheet" href="${base}/assets/css/product.css">
 <link rel="stylesheet" href="${base}/assets/css/style.css">
 <link rel="stylesheet" href="${base}/assets/css/reponsive.css">
-<style type="text/css">
-	.cart-customer-block {
-            margin-bottom: 10px;
-        }
-        
-        .form-customer-info {
-            width: 80%;
-            margin: 5px 0;
-            padding: 5px;
-        }
-        
-        .form-customer-info:focus-visible {
-            outline: none;
-        }
-        
-        .cart__payment-methods {
-            margin-bottom: 10px;
-        }
-        
-        .label-container {
-            width: 100%;
-            line-height: 20px;
-            margin: 5px 0;
-        }
-        
-        .cart__button-buy {
-            margin: 10px 0;
-        }
-</style>
 </head>
 
 <body>
@@ -74,9 +45,9 @@
     <div class="container-wrapper">
         <div class="grid">
             <div class="row">
-                <div class="col c-12 cart-wrapper margin-bottom-10">
-                    <div class="border-radius box-shadow">
-                        <div class="shopping-cart__title display-flex border-none">
+                <div class="col c-9 cart-wrapper block-container">
+                	<div class="border-radius box-shadow  margin-bottom-10">
+                        <div class="shopping-cart__title display-flex border-none no-border">
                             <div id="js-view-quantity-item">
                                 Thông tin giỏ hàng (<span>${cart.cartItems.size()} sản phẩm </span>)
                             </div>
@@ -86,107 +57,91 @@
                             <div id="js-delete-all-item" baseUrl="${base}">Xóa giỏ hàng</div>
                         </div>
                     </div>
-                </div>
-                <div class="col c-12 cart-wrapper block-container">
-                    <div class="border-radius box-shadow">
-                        <div class="shopping-cart__title display-flex">
-                            <div class="cart-col-product">Sản phẩm</div>
-                            <div class="cart-col-color">Màu sắc</div>
-                            <div class="cart-col-price">Đơn giá</div>
-                            <div class="cart-col-quantity">Số lượng</div>
-                            <div class="cart-col-total-price">Thành tiền</div>
-                            <div class="cart-col-delete">Thao tác</div>
-                        </div>
-                        <div class="shopping-cart__list">
-                        	<c:forEach var="ci" items="${cart.cartItems}">
-	                            <div class="shopping-cart__item display-flex" id="${ci.productId}" baseUrl="${base}">
-	                                <div class="cart-col-product">
-	                                    <a href="" class="cart-col-product__img">
-	                                        <img src="${base}/Upload/Products/${ci.productAvatar}" width="100%" alt="">
-	                                    </a>
-	                                    <div class="cart-col-product__info">${ci.productName}</div>
-	                                </div>
-	                                <div class="cart-col-color">
-	                                    Màu Xanh
-	                                </div>
-	                                <div class="cart-col-price" value="${ci.priceUnit}">
-	                                    <fmt:formatNumber value="${ci.priceUnit}" pattern="###,### ₫" type="number"/>
-	                                </div>
-	                                <div class="cart-col-quantity">
-	                                    <a href="" class="cart-quantity__change" data-value="-1"> - </a>
-	                                    <input type="number" class="cart-quantity__input" value="${ci.quantity}">
-	                                    <a href="" class="cart-quantity__change" data-value="1"> + </a>
-	                                </div>
-	                                <div class="cart-col-total-price"><fmt:formatNumber value="${ci.priceUnit * ci.quantity}" pattern="###,### ₫" type="number"/></div>
-	                                <div class="cart-col-delete">
-	                                    <i class="fas fa-trash-alt"></i> Xóa
-	                                </div>
+                    <div id="list-cart-item" class="border-radius box-shadow overflow-hidden">
+	                    <c:choose>
+	                    	<c:when test="${not empty cart.cartItems}">
+		                    	<div class="shopping-cart__title display-flex">
+		                            <div class="cart-col-product">Sản phẩm</div>
+		                            <div class="cart-col-price">Đơn giá</div>
+		                            <div class="cart-col-quantity">Số lượng</div>
+		                            <div class="cart-col-total-price">Thành tiền</div>
+		                            <div class="cart-col-delete">Thao tác</div>
+		                        </div>
+		                        <div class="shopping-cart__list">
+		                        	<c:forEach var="ci" items="${cart.cartItems}">
+			                            <div class="shopping-cart__item display-flex" id="${ci.productId}" baseUrl="${base}">
+			                                <div class="cart-col-product">
+			                                    <a href="" class="cart-col-product__img">
+			                                        <img src="${base}/Upload/Products/${ci.productAvatar}" width="100%" alt="">
+			                                    </a>
+			                                    <div class="cart-col-product__info">${ci.productName}</div>
+			                                </div>
+			                                <div class="cart-col-price" value="${ci.priceUnit}">
+			                                    <fmt:formatNumber value="${ci.priceUnit}" pattern="###,### ₫" type="number"/>
+			                                </div>
+			                                <div class="cart-col-quantity">
+			                                    <a href="" class="cart-quantity__change" data-value="-1"> - </a>
+			                                    <input type="number" class="cart-quantity__input" value="${ci.quantity}">
+			                                    <a href="" class="cart-quantity__change" data-value="1"> + </a>
+			                                </div>
+			                                <div class="cart-col-total-price"><fmt:formatNumber value="${ci.priceUnit * ci.quantity}" pattern="###,### ₫" type="number"/></div>
+			                                <div class="cart-col-delete">
+			                                    <i class="fas fa-trash-alt"></i> Xóa
+			                                </div>
+			                            </div>
+		                        	</c:forEach>
+		                        </div>
+	                    	</c:when>
+	                    	<c:otherwise>
+	                    		<div class="no-order" style="height: 284px;"><img src="${base}/assets/imgs/empty-order.png">
+	                            	<p>Chưa có sản phẩm nào trong giỏ hàng của bạn</p>
 	                            </div>
-                        	</c:forEach>
-                        </div>
-                    </div>
+	                    	</c:otherwise>
+	                    </c:choose>
+                     </div>
                 </div>
-                <div class="col c-12 block-container">
+                <div class="col c-3 block-container padding-left-0">
                     <form action="${base}/cart/checkout" method="post" class="display-flex border-radius box-shadow">
-                        <div class="col c-6 cart-customer-block">
-                            <p class="title red font-600 text-15"> ĐỊA CHỈ NHẬN HÀNG </p>
+                        <div class="col c-12 cart-customer-block">
+                            <p class="cart-customer__title"> ĐỊA CHỈ NHẬN HÀNG </p>
                             <div class="display-flex">
                             	<c:choose>
                             		<c:when test="${isLogined}">
                             			<input type="text" class="form-customer-info" value="${userLogined.name }" disabled>
                                 		<input type="text" class="form-customer-info" value="${userLogined.email }" disabled>
+                                		<c:choose>
+                                			<c:when test="${not empty userLogined.phone }">
+                                				<input type="text" class="form-customer-info" value="${userLogined.phone }" disabled>
+                                			</c:when>
+                                			<c:otherwise>
+                                				<input type="text" class="form-customer-info" placeholder="Số điện thoại" name="user_info[phone]" id="buyer_mobile" required>
+                                			</c:otherwise>
+                                		</c:choose>
                             		</c:when>
                                 	<c:otherwise>
                                 		<input type="text" class="form-customer-info" placeholder="Họ và tên" name="user_info[name]" id="buyer_name" required>
                                 		<input type="text" class="form-customer-info" placeholder="Email" name="user_info[email]" id="buyer_email" required>
+		                                <input type="text" class="form-customer-info" placeholder="Số điện thoại" name="user_info[phone]" id="buyer_mobile" required>
                                 	</c:otherwise>
                             	</c:choose>
-                                <input type="text" class="form-customer-info" placeholder="Số điện thoại" name="user_info[phone]" id="buyer_mobile" required>
                                 <input type="text" class="form-customer-info" placeholder="Địa chỉ" name="user_info[address]" id="buyer_address" required>
                             </div>
                         </div>
-
-                        <div class="col c-6 cart-customer-block">
-                            <p class="title red font-600 text-15"> HÌNH THỨC THANH TOÁN </p>
-
-                            <div class="cart__payment-methods display-flex">
-                                <label class="label-container">
-                                    <input type="radio" id="pay_method_1" name="pay_method" value="1" checked="">
-                                    <span>Thanh toán tiền mặt khi nhận hàng</span>
-                                </label>
-                                <label class="label-container">
-                                    <input type="radio" id="pay_method_1" name="pay_method" value="1" checked="">
-                                    <span>Thanh toán tiền mặt khi nhận hàng</span>
-                                </label>
-                                <label class="label-container">
-                                    <input type="radio" id="pay_method_1" name="pay_method" value="1" checked="">
-                                    <span>Thanh toán tiền mặt khi nhận hàng</span>
-                                </label>
-                                <label class="label-container">
-                                    <input type="radio" id="pay_method_1" name="pay_method" value="1" checked="">
-                                    <span>Thanh toán tiền mặt khi nhận hàng</span>
-                                </label>
-                            </div>
-
-                            <!-- <div class="cart__voucher">
-                                <div class="cart-voucher-holder position-relative">
-                                    <input type="text" placeholder="Nhập mã giảm giá/quà tặng" id="discount_code" name="coupon_code" value=" " />
-                                    <button type="button" class="submit-voucher js-apply-discount-code">Áp dụng</button>
-                                </div>
-                                <span class="red d-block" id="js-voucher-message"> </span>
-                            </div> -->
-
-                            <div class="">
-                                Tổng tiền hàng: 
-                                <b class="red text-22 font-600" id="js-total-cart-payment">
-                                	<fmt:formatNumber value="${cart.totalPrice }" pattern="###,### ₫" type="number"/>
-                                </b>
-                            </div>
-
-                            <div class="cart__button-buy">
-                                <button type="button"> MUA TRẢ GÓP </button>
-                                <button type="submit"> ĐẶT MUA NGAY </button>
-                            </div>
+                        <div class="col c-12 cart-customer-block">
+	                        <div class="cart__payment-total">
+	                            Tổng tiền hàng: 
+	                            <b id="js-total-cart-payment">
+	                            	<c:choose>
+		                            	<c:when test="${not empty cart.totalPrice}">
+		                                	<fmt:formatNumber value="${cart.totalPrice }" pattern="###,### ₫" type="number"/>
+		                            	</c:when>
+										<c:otherwise>
+											0 ₫
+										</c:otherwise>	                            	
+	                            	</c:choose>
+	                            </b>
+	                        </div>
+	                        <button class="cart__button-buy" type="submit"> ĐẶT MUA NGAY </button>
                         </div>
                     </form>
                 </div>

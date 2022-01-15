@@ -3,11 +3,11 @@ $(function() {
 	if (!$("div").hasClass("block-breadcrumbs")) {
 		$("header.header").addClass("box-shadow");
 	}
-	
-	if(parseInt($("#iconShowTotalItemsInCart").text())){
-		$("#iconShowTotalItemsInCart").css("display","flex");
+
+	if (parseInt($("#iconShowTotalItemsInCart").text())) {
+		$("#iconShowTotalItemsInCart").css("display", "flex");
 	}
-	
+
 
 	//#region Search click
 	$("#icon-search").click(function(event) {
@@ -63,6 +63,31 @@ $(function() {
 		input.addEventListener("blur", blurFunc);
 	});
 	//#endregion Contact us
+
+	$(function() {
+		$(".account__form-group.checkbox>input").change(function() {
+			// $("input:checkbox").prop('checked', $(this).prop("checked"));
+			if ($(this).prop("checked")) {
+				$("#change-password").show();
+			} else {
+				$("#change-password").hide();
+				$("#current_pass").val("");
+				$("#new_pass").val("");
+				$("#re_new_pass").val("");
+			}
+		});
+		$('li.tab-order__link').click(function() {
+			var tab_id = $(this).attr('data-tab');
+
+			$('li.tab-order__link').removeClass('current');
+			$('.tab-content').removeClass('current');
+
+			$(this).addClass('current');
+			$(tab_id).addClass('current');
+
+			$("tab_id").fadeIn(3000);
+		})
+	})
 });
 
 function AddToCart(baseUrl, productId, quanlity) {
@@ -79,10 +104,10 @@ function AddToCart(baseUrl, productId, quanlity) {
 		dataType: "json",
 		success: function(jsonResult) {
 			$("#iconShowTotalItemsInCart").html(jsonResult.totalItems);
-			if($("#iconShowTotalItemsInCart").css("display") == "none"){				
-				$("#iconShowTotalItemsInCart").css("display","flex");
+			if ($("#iconShowTotalItemsInCart").css("display") == "none") {
+				$("#iconShowTotalItemsInCart").css("display", "flex");
 			}
-			
+
 			Swal.fire({
 				toast: true,
 				position: 'top-end',
@@ -94,17 +119,130 @@ function AddToCart(baseUrl, productId, quanlity) {
 		}
 	});
 }
+function editMyAccount(baseUrl) {
+	let data = {
+		id: $("#idAccount").val(),
+		email: $("#user_email").val(),
+		name: $("#display_name").val(),
+		phone: $("#phone_number").val(),
+		password: null,
+	};
 
+	if ($(".account__form-group.checkbox>input").prop("checked")) {
+		var pass = $("#current_pass").val(), newPass = $("#new_pass").val(), reNewPass = $("#re_new_pass").val();
+
+		if (!pass || !newPass || !reNewPass) {
+			Swal.fire(
+				'Thất bại',
+				'Vui lòng nhập mật khẩu để đổi',
+				'error'
+			)
+			return
+		}
+
+		data.password = pass;
+
+		$.ajax({
+			url: baseUrl + "/ajax/account/check",
+			type: "post",
+			contentType: "application/json",
+			data: JSON.stringify(data),
+			dataType: "json",
+			success: function(jsonResult) {
+				if (jsonResult.status) {
+					if (newPass === reNewPass) {
+						data.password = newPass;
+						$.ajax({
+							url: baseUrl + "/ajax/account/change",
+							type: "post",
+							contentType: "application/json",
+							data: JSON.stringify(data),
+							dataType: "json",
+							success: function(jsonResult) {
+								Swal.fire(
+									'Thành công',
+									'Cập nhật tài khoản thành công',
+									'success'
+								)
+							}
+						});
+					} else {
+						Swal.fire(
+							'Thất bại',
+							'Mật khẩu mới không trùng nhau',
+							'error'
+						)
+					}
+				} else {
+					Swal.fire(
+						'Thất bại',
+						'Mật khẩu cũ không chính xác',
+						'error'
+					)
+				}
+			}
+		});
+	} else {
+		$.ajax({
+			url: baseUrl + "/ajax/account/change",
+			type: "post",
+			contentType: "application/json",
+			data: JSON.stringify(data),
+			dataType: "json",
+			success: function(jsonResult) {
+				Swal.fire(
+					'Thành công',
+					'Cập nhật tài khoản thành công',
+					'success'
+				)
+			}
+		});
+	}
+}
+
+function updateOrderStatus(id, status) {
+	var str = '';
+	if (status == 3) { str = 'Đánh giá' }
+	else { str = "Nhập lý do muốn hủy" }
+	(async () => {
+		const { value: note } = await Swal.fire({
+			input: 'textarea',
+			inputLabel: str,
+			inputPlaceholder: 'Nhập nội dung ...',
+			inputAttributes: {
+				'aria-label': 'Nhập nội dung'
+			},
+			showCancelButton: true
+		})
+
+		if (note) {
+			let data = { id: id, userId: status, note: note };
+			$.ajax({
+				url: "/ajax/account/updateOrderStatus",
+				type: "post",
+				contentType: "application/json",
+				data: JSON.stringify(data),
+				dataType: "json",
+				success: function(jsonResult) {
+					if (jsonResult.message) {
+						Swal.fire('Thành công', jsonResult.message, 'success');
+						$(".account__form-orders").html(jsonResult.buildOrders);
+					} else {
+						Swal.fire('Thất bại', "Lỗi", 'error');
+					}
+				}
+			});
+		}
+	})()
+}
 
 function subscribe(baseUrl) {
 	var email = $("#emailSubscribe");
 
 	if (ValidateEmail(email)) {
 		let data = {
-			email: email.val() // Lay theo id
+			email: email.val()
 		};
-		// $ === jQuery
-		// json == javascript object
 		$.ajax({
 			url: baseUrl + "/ajax/subcrible", //->action
 			type: "post",

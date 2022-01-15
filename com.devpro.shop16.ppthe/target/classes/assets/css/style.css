@@ -765,3 +765,184 @@
 
 
 /* #endregion Category*/
+
+/* #region Account*/
+
+.account-navbar {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+}
+
+.account-navbar>a {
+    text-decoration: none;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 5px 10px;
+    margin-bottom: 10px;
+    border: 0.5px solid transparent;
+}
+
+.account-navbar>a:last-child {
+    margin-bottom: 0;
+}
+
+.account-navbar>a:hover,
+.account-navbar>a.active {
+    border-radius: 5px;
+    border-color: #e11b1e;
+    background-color: #fee;
+    color: #e11b1e;
+}
+
+.account-navbar>a>i {
+    margin-right: 15px;
+    font-size: 22px;
+}
+
+.account-container {
+    padding: 10px;
+}
+
+.account-info-container>h3 {
+    font-size: 24px;
+    line-height: 36px;
+    text-transform: uppercase;
+    margin: 10px;
+    color: var(--background-color);
+}
+
+.account__form-container:not(.order) {
+    padding: 20px 30px;
+}
+
+.account__form-container.order {
+    padding: 0;
+}
+
+.account__form-group {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.account__form-group.checkbox {
+    position: relative;
+}
+
+.account__form-group>label {
+    margin: 0;
+    width: 180px;
+    line-height: 22px;
+    font-weight: 500;
+}
+
+.account__form-group.checkbox>input {
+    position: absolute;
+}
+
+.account__form-group.checkbox>label {
+    padding-left: 20px;
+    cursor: pointer;
+}
+
+#change-password {
+    display: none;
+}
+
+.account__form-group:not(.checkbox)>input {
+    border: 1px solid #C6C5C5;
+    box-sizing: border-box;
+    border-radius: 5px;
+    padding: 10px 15px;
+    width: 490px;
+}
+
+.account__form-group:not(.checkbox)>input:focus-visible {
+    outline: none;
+}
+
+.account__form-group>button {
+    padding: 10px 16px;
+    font-size: 18px;
+    font-weight: 500;
+    background-color: transparent;
+    color: var(--background-color);
+    border: 1px solid var(--background-color);
+    border-radius: 5px;
+}
+
+.account__form-group>button:hover {
+    background-color: var(--background-color);
+    color: var(--white-color);
+}
+
+.no-order {
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    -webkit-box-align: center;
+    align-items: center;
+    background-color: rgb(255, 255, 255);
+    width: 100%;
+}
+
+.no-order>img {
+    width: 200px;
+    height: 200px;
+}
+
+.no-order>p {
+    font-weight: bold;
+    color: #ccc;
+}
+
+.table-order {
+    margin-top: 20px;
+    width: 100%;
+    color: var(--text-color);
+    border-top: 2px solid var(--text-color);
+    border-bottom: 2px solid var(--text-color);
+    text-align: center;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.table-order thead tr th {
+    font-weight: bold;
+    border-bottom: 2px solid var(--text-color);
+}
+
+.table-order th,
+.table-order td {
+    padding: 10px;
+}
+
+.table-order tbody tr:nth-child(odd) {
+    background-color: #f2f2f2;
+}
+
+.account-order__action {
+    text-decoration: none;
+    color: var(--background-color);
+    background: var(--white-color);
+    border: 1px solid var(--background-color);
+    padding: 3px 5px;
+    width: 80px;
+    line-height: 20px;
+    border-radius: 5px;
+    margin: 5px auto;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.account-order__action:hover {
+    color: var(--white-color);
+    background: var(--background-color);
+}
+
+
+/* #endregion Account*/

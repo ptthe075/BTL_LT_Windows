@@ -30,6 +30,11 @@
     max-width: 20%;
 }
 
+.col-5-4 {
+    flex: 0 0 80%;
+    max-width: 80%;
+}
+
 .row.no-gutters .col {
     padding-left: 0;
     padding-right: 0;
